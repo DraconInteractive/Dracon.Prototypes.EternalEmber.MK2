@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63b8c86da68e5449a41befc4ab7e6cb, type: 3}
+  m_Name: Basic Shield Recipe
+  m_EditorClassIdentifier: 
+  recipeName: Basic Shield
+  materials:
+  - material: {fileID: 11400000, guid: 51c693bfa6c93e74bae0058c293e8bab, type: 2}
+    amount: 2
+  - material: {fileID: 11400000, guid: 5471998cc508748469de669608373854, type: 2}
+    amount: 1
+  - material: {fileID: 11400000, guid: 9cbe4b5819a5e904d927783c605670ea, type: 2}
+    amount: 1
+  result: {fileID: 11400000, guid: 0aa010a9a9a205b449cf02ef5474d819, type: 2}

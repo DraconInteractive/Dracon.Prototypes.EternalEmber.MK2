@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Meteor
+  m_EditorClassIdentifier: Assembly-CSharp::Spell_Type
+  range: 5
+  damage: 0
+  damageDelay: 0
+  delayByDistance: 0
+  animationName: 
+  effect: 0
+  abilityIcon: {fileID: 0}
+  cost: 10
+  info:
+    ID: 0
+    Name: Meteor
+    Icon: {fileID: 21300000, guid: c4c8f4afc6c8d364bbf3afe15ea7c3cd, type: 3}
+    Description: Rain fire from the heavens
+    Range: 10
+    Cooldown: 7
+    CastTime: 1
+    PowerCost: 10
+    Flags: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Crafting
+  m_EditorClassIdentifier: Assembly-CSharp::Spell_Type
+  info:
+    ID: 0
+    Name: Craft
+    Icon: {fileID: 21300000, guid: 8e50fc2067e85f449b5450f6538bc2ab, type: 3}
+    Description: When crafting, there is a _% chance of gianing a tier for free
+    Range: 0
+    Cooldown: 0
+    CastTime: 0
+    PowerCost: 0
+    Flags: 1

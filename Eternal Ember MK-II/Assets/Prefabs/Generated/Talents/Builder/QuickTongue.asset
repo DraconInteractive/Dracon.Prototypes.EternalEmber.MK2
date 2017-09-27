@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: QuickTongue
+  m_EditorClassIdentifier: Assembly-CSharp::Spell_Type
+  info:
+    ID: 0
+    Name: QuickTongue
+    Icon: {fileID: 21300000, guid: c07f74c1be533c74a88fd3d0c5924ae5, type: 3}
+    Description: Increase barter trade rate by 1.5x
+    Range: 0
+    Cooldown: 0
+    CastTime: 0
+    PowerCost: 0
+    Flags: 1

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5b2e882f9386b9c4b8b2db8582b6c94a
+timeCreated: 1503930484
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - lockedSprite: {fileID: 21300000, guid: c027bce046705474698253176ef30018, type: 3}
+  - openSprite: {fileID: 21300000, guid: 6bd340a0c7da5ac4799fd14b7b80b58a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
