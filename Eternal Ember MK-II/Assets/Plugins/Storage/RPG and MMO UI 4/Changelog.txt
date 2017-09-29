@@ -1,0 +1,8 @@
+Version 1.1:
+- All scripts are using DuloGames.UI as namespace now.
+- Added Black Overlay manager.
+- Added Loading Overlay manager.
+- Made some minor fixes and improvements on the scripts.
+
+Version 1.0:
+- Initial release.
