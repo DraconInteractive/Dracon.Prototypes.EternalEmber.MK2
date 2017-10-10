@@ -22,14 +22,23 @@ public class Interactable : MonoBehaviour {
     public UIWindow uiWindow;
 
     public bool hasInterCanvas;
+
+	cakeslice.Outline objOutline;
     // Use this for initialization
     void Start()
     {
         playerMovement = Player.player.GetComponent<Movement> ();
 
+		objOutline = GetComponent<cakeslice.Outline> ();
+		if (objOutline != null) {
+			objOutline.enabled = false;
+		}
         SetupCanvas ();
 
-        selection.SetActive (false);
+		if (selection != null) {
+			selection.SetActive (false);
+		}
+        
 
         if (uiWindow != null)
         {
@@ -87,11 +96,14 @@ public class Interactable : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (selection.activeSelf && i_type != ActionType.Door && rotatingSelection)
-        {
-            //selection.transform.LookAt(Camera.main.transform.position);
-            selection.transform.forward = -(Camera.main.transform.position - selection.transform.position);
-        }
+		if (selection != null) {
+			if (selection.activeSelf && i_type != ActionType.Door && rotatingSelection)
+			{
+				//selection.transform.LookAt(Camera.main.transform.position);
+				selection.transform.forward = -(Camera.main.transform.position - selection.transform.position);
+			}
+		}
+        
     }
 
     private void OnMouseDown()
@@ -109,12 +121,24 @@ public class Interactable : MonoBehaviour {
     private void OnMouseEnter()
     {
         //print ("Mouse present over: " + gameObject.name);
-        selection.SetActive (true);
+		if (selection != null) {
+			selection.SetActive (true);
+		}
+        
+		if (objOutline != null) {
+			objOutline.enabled = true;
+		}
     }
 
     private void OnMouseExit()
     {
-        selection.SetActive (false);
+		if (selection != null) {
+			selection.SetActive (false);
+		}
+        
+		if (objOutline != null) {
+			objOutline.enabled = false;
+		}
     }
 
     void BeginInteract()

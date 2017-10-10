@@ -9,7 +9,7 @@ public class Door : MonoBehaviour
 
     public bool locked;
 
-    public enum DoorType { ForceField, Slide, Part, Swing };
+    public enum DoorType { ForceField, Slide, Part, Swing, LoadScene };
     public DoorType d_type;
 
     public GameObject[] pieces;
@@ -18,6 +18,9 @@ public class Door : MonoBehaviour
 
     public Renderer[] statusImages;
     public Sprite lockedSprite, openSprite;
+
+	[Tooltip("If LoadScene Applicable")]
+	public string lvlName = "";
     public bool Locked
     {
         get
@@ -124,6 +127,10 @@ public class Door : MonoBehaviour
                     yield return null;
                 }
                 break;
+		case DoorType.LoadScene:
+			UnityEngine.SceneManagement.SceneManager.LoadScene (lvlName);
+			yield break;
+			break;
         }
         GetComponent<Collider> ().enabled = false;
         GetComponent<NavMeshObstacle> ().enabled = false;

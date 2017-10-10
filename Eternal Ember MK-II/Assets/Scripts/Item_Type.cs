@@ -19,7 +19,7 @@ public class Item_Type : ScriptableObject
     public UIEquipmentType itemEquipType;
     public List<CharacterAttribute> attributes = new List<CharacterAttribute> ();
 
-    public enum ItemType { Weapon, Consumable, Rune, Currency, Shield, Armour, Material};
+    public enum ItemType { Weapon, Consumable, Rune, Currency, Shield, Armour, Material, Book};
     public ItemType i_type;
 
     public GameObject itemPrefab;

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19706c0d5c8fe246a84cea6acf3e90d, type: 3}
+  m_Name: Book of Wonders
+  m_EditorClassIdentifier: 
+  itemName: Book of Wonders
+  itemDesc: A detailed accounting of the great acts of all races
+  itemSprite: {fileID: 21300000, guid: 6bca44e9eb79a354a9aeebfd4aed8a1c, type: 3}
+  reqLevel: 0
+  itemQuality: 1
+  itemEquipType: 0
+  attributes: []
+  i_type: 7
+  itemPrefab: {fileID: 117534, guid: 075a5708cbd75f5419f03e2007e3ff4f, type: 2}
+  uiItemType: 2
+  controllers:
+  - {fileID: 11400000, guid: d660b82aa452d124a9e6968bce7f0fcf, type: 2}
+  questItem: 0
+  itemRecipe: {fileID: 0}
