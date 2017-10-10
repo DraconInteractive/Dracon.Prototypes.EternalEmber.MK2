@@ -7,7 +7,6 @@ using DuloGames.UI;
 public class Interactable : MonoBehaviour {
 
     public float stoppingDistance;
-    Movement playerMovement;
     public GameObject selection;
 
     public enum ActionType { Converse, Loot, Information, Door, Quest, CraftingTable, Resource };
@@ -27,8 +26,6 @@ public class Interactable : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        playerMovement = Player.player.GetComponent<Movement> ();
-
 		objOutline = GetComponent<cakeslice.Outline> ();
 		if (objOutline != null) {
 			objOutline.enabled = false;
@@ -113,8 +110,10 @@ public class Interactable : MonoBehaviour {
             print("window open");
             return;
         }
-        playerMovement.ProcMove (transform.position, stoppingDistance);
-        playerMovement.onArrived = BeginInteract;
+		//TODO: Move to position, when arrived call BeginInteract. E.g.:
+
+//        playerMovement.ProcMove (transform.position, stoppingDistance);
+//        playerMovement.onArrived = BeginInteract;
 
     }
 
@@ -128,6 +127,7 @@ public class Interactable : MonoBehaviour {
 		if (objOutline != null) {
 			objOutline.enabled = true;
 		}
+		print ("mouse over on" + name);
     }
 
     private void OnMouseExit()
@@ -152,7 +152,9 @@ public class Interactable : MonoBehaviour {
         yield return new WaitForSeconds (1.5f + Player.player.interactWaitTime);
         if (uiWindow == null)
         {
-            associateCanvas.SetActive(true);
+			if (associateCanvas != null) {
+				associateCanvas.SetActive(true);
+			}
         }
         else
         {
@@ -166,8 +168,10 @@ public class Interactable : MonoBehaviour {
                 Door d = GetComponent<Door> ();
                 if (!d.locked)
                 {
-                    associateCanvas.SetActive (false);
-                    d.ProcOpen ();
+					if (associateCanvas != null) {
+						associateCanvas.SetActive (false);
+					}
+					d.ProcOpen ();
                 }
                 break;
             case ActionType.Loot:

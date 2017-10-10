@@ -6,7 +6,7 @@ public class Camera_Controller : MonoBehaviour {
 
     Player player;
     Vector3 cameraVelocity;
-    public Vector3 playerOffset;
+    public Vector3 playerOffset, lookOffset;
     public float cameraMovementDelta;
     [HideInInspector]
     public Transform headTransform;
@@ -51,6 +51,7 @@ public class Camera_Controller : MonoBehaviour {
         }
         Vector3 targetPos = player.transform.position + player.transform.forward * playerOffset.z + player.transform.right * playerOffset.x + player.transform.up * playerOffset.y;
         transform.position = Vector3.SmoothDamp (transform.position, targetPos, ref cameraVelocity, cameraMovementDelta);
-        transform.LookAt (headTransform.position + Vector3.up * scrollOffset.y + headTransform.right * scrollOffset.x);
+//        transform.LookAt (headTransform.position + Vector3.up * scrollOffset.y + headTransform.right * scrollOffset.x);
+		transform.LookAt (player.transform.position + Vector3.up * (scrollOffset.y + lookOffset.y) + player.transform.right * (scrollOffset.x + lookOffset.x) + player.transform.forward * lookOffset.z);
     }
 }

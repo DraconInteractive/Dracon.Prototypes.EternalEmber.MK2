@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: e52b5f11dd3fb3c44aa5d2b2b5ba48f2
+timeCreated: 1490118006
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: abdomenLower
+    100002: abdomenUpper
+    100004: chestLower
+    100006: chestUpper
+    100008: head
+    100010: hip
+    100012: lCollar
+    100014: lForearmBend
+    100016: lowerJaw
+    100018: lPectoral
+    100020: lShldrBend
+    100022: lShldrTwist
+    100024: neckLower
+    100026: neckUpper
+    100028: //RootNode
+    100030: rCollar
+    100032: rForearmBend
+    100034: rPectoral
+    100036: rShldrBend
+    100038: rShldrTwist
+    100040: valWolfPauldrons_17718
+    100042: valWolfPauldrons_17718_LOD0
+    100044: valWolfPauldrons_17718_LOD1
+    100046: valWolfPauldrons_17718_LOD2
+    100048: valWolfPauldrons_17718_LOD3
+    400000: abdomenLower
+    400002: abdomenUpper
+    400004: chestLower
+    400006: chestUpper
+    400008: head
+    400010: hip
+    400012: lCollar
+    400014: lForearmBend
+    400016: lowerJaw
+    400018: lPectoral
+    400020: lShldrBend
+    400022: lShldrTwist
+    400024: neckLower
+    400026: neckUpper
+    400028: //RootNode
+    400030: rCollar
+    400032: rForearmBend
+    400034: rPectoral
+    400036: rShldrBend
+    400038: rShldrTwist
+    400040: valWolfPauldrons_17718
+    400042: valWolfPauldrons_17718_LOD0
+    400044: valWolfPauldrons_17718_LOD1
+    400046: valWolfPauldrons_17718_LOD2
+    400048: valWolfPauldrons_17718_LOD3
+    4300000: valWolfPauldrons_17718_LOD0
+    4300002: valWolfPauldrons_17718_LOD1
+    4300004: valWolfPauldrons_17718_LOD2
+    4300006: valWolfPauldrons_17718_LOD3
+    9500000: //RootNode
+    13700000: valWolfPauldrons_17718_LOD0
+    13700002: valWolfPauldrons_17718_LOD1
+    13700004: valWolfPauldrons_17718_LOD2
+    13700006: valWolfPauldrons_17718_LOD3
+    20500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.0625
+    - 0.01
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

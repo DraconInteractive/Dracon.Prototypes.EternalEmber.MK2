@@ -56,6 +56,7 @@ public class Door : MonoBehaviour
 
     public virtual void ProcOpen()
     {
+		print ("proc door open");
         if (actionRoutine != null)
         {
             //StopCoroutine (actionRoutine);
@@ -66,6 +67,7 @@ public class Door : MonoBehaviour
 
     IEnumerator OpenDoor()
     {
+		print ("opening door of type: " + d_type.ToString ());
         switch (d_type)
         {
             case DoorType.ForceField:
@@ -128,6 +130,7 @@ public class Door : MonoBehaviour
                 }
                 break;
 		case DoorType.LoadScene:
+			print ("Loading Scene");
 			UnityEngine.SceneManagement.SceneManager.LoadScene (lvlName);
 			yield break;
 			break;

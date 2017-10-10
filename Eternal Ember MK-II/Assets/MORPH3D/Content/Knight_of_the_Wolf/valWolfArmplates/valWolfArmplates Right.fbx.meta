@@ -1,0 +1,239 @@
+fileFormatVersion: 2
+guid: a2e2257a314482e4596b6c6875560042
+timeCreated: 1490118074
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: abdomenLower
+    100002: abdomenLower 1
+    100004: abdomenLower 2
+    100006: abdomenLower 3
+    100008: abdomenUpper
+    100010: abdomenUpper 1
+    100012: abdomenUpper 2
+    100014: abdomenUpper 3
+    100016: chestLower
+    100018: chestLower 1
+    100020: chestLower 2
+    100022: chestLower 3
+    100024: chestUpper
+    100026: chestUpper 1
+    100028: chestUpper 2
+    100030: chestUpper 3
+    100032: hip
+    100034: hip 1
+    100036: hip 2
+    100038: hip 3
+    100040: lCollar
+    100042: lCollar 1
+    100044: lCollar 2
+    100046: lCollar 3
+    100048: lForearmBend
+    100050: lForearmBend 1
+    100052: lForearmBend 2
+    100054: lForearmBend 3
+    100056: lForearmTwist
+    100058: lForearmTwist 1
+    100060: lForearmTwist 2
+    100062: lForearmTwist 3
+    100064: lHand
+    100066: lHand 1
+    100068: lHand 2
+    100070: lHand 3
+    100072: lShldrBend
+    100074: lShldrBend 1
+    100076: lShldrBend 2
+    100078: lShldrBend 3
+    100080: lShldrTwist
+    100082: lShldrTwist 1
+    100084: lShldrTwist 2
+    100086: lShldrTwist 3
+    100088: rCollar
+    100090: rCollar 1
+    100092: rCollar 2
+    100094: rCollar 3
+    100096: rForearmBend
+    100098: rForearmBend 1
+    100100: rForearmBend 2
+    100102: rForearmBend 3
+    100104: rForearmTwist
+    100106: rForearmTwist 1
+    100108: rForearmTwist 2
+    100110: rForearmTwist 3
+    100112: rHand
+    100114: rHand 1
+    100116: rHand 2
+    100118: rHand 3
+    100120: rShldrBend
+    100122: rShldrBend 1
+    100124: rShldrBend 2
+    100126: rShldrBend 3
+    100128: rShldrTwist
+    100130: rShldrTwist 1
+    100132: rShldrTwist 2
+    100134: rShldrTwist 3
+    100136: //RootNode
+    100138: valWolfArmplates_21622_right_LOD0
+    100140: valWolfArmplates_21622_right_LOD1
+    100142: valWolfArmplates_21622_right_LOD2
+    100144: valWolfArmplates_21622_right_LOD3
+    100146: valWolfArmplates_21622_right_LOD_0
+    100148: valWolfArmplates_21622_right_LOD_1
+    100150: valWolfArmplates_21622_right_LOD_2
+    100152: valWolfArmplates_21622_right_LOD_3
+    400000: abdomenLower
+    400002: abdomenLower 1
+    400004: abdomenLower 2
+    400006: abdomenLower 3
+    400008: abdomenUpper
+    400010: abdomenUpper 1
+    400012: abdomenUpper 2
+    400014: abdomenUpper 3
+    400016: chestLower
+    400018: chestLower 1
+    400020: chestLower 2
+    400022: chestLower 3
+    400024: chestUpper
+    400026: chestUpper 1
+    400028: chestUpper 2
+    400030: chestUpper 3
+    400032: hip
+    400034: hip 1
+    400036: hip 2
+    400038: hip 3
+    400040: lCollar
+    400042: lCollar 1
+    400044: lCollar 2
+    400046: lCollar 3
+    400048: lForearmBend
+    400050: lForearmBend 1
+    400052: lForearmBend 2
+    400054: lForearmBend 3
+    400056: lForearmTwist
+    400058: lForearmTwist 1
+    400060: lForearmTwist 2
+    400062: lForearmTwist 3
+    400064: lHand
+    400066: lHand 1
+    400068: lHand 2
+    400070: lHand 3
+    400072: lShldrBend
+    400074: lShldrBend 1
+    400076: lShldrBend 2
+    400078: lShldrBend 3
+    400080: lShldrTwist
+    400082: lShldrTwist 1
+    400084: lShldrTwist 2
+    400086: lShldrTwist 3
+    400088: rCollar
+    400090: rCollar 1
+    400092: rCollar 2
+    400094: rCollar 3
+    400096: rForearmBend
+    400098: rForearmBend 1
+    400100: rForearmBend 2
+    400102: rForearmBend 3
+    400104: rForearmTwist
+    400106: rForearmTwist 1
+    400108: rForearmTwist 2
+    400110: rForearmTwist 3
+    400112: rHand
+    400114: rHand 1
+    400116: rHand 2
+    400118: rHand 3
+    400120: rShldrBend
+    400122: rShldrBend 1
+    400124: rShldrBend 2
+    400126: rShldrBend 3
+    400128: rShldrTwist
+    400130: rShldrTwist 1
+    400132: rShldrTwist 2
+    400134: rShldrTwist 3
+    400136: //RootNode
+    400138: valWolfArmplates_21622_right_LOD0
+    400140: valWolfArmplates_21622_right_LOD1
+    400142: valWolfArmplates_21622_right_LOD2
+    400144: valWolfArmplates_21622_right_LOD3
+    400146: valWolfArmplates_21622_right_LOD_0
+    400148: valWolfArmplates_21622_right_LOD_1
+    400150: valWolfArmplates_21622_right_LOD_2
+    400152: valWolfArmplates_21622_right_LOD_3
+    4300000: valWolfArmplates_21622_right_LOD0
+    4300002: valWolfArmplates_21622_right_LOD1
+    4300004: valWolfArmplates_21622_right_LOD2
+    4300006: valWolfArmplates_21622_right_LOD3
+    9500000: //RootNode
+    13700000: valWolfArmplates_21622_right_LOD0
+    13700002: valWolfArmplates_21622_right_LOD1
+    13700004: valWolfArmplates_21622_right_LOD2
+    13700006: valWolfArmplates_21622_right_LOD3
+    20500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.0625
+    - 0.01
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

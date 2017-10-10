@@ -9,10 +9,10 @@ using DuloGames.UI;
 public class Player : MonoBehaviour {
 
     public static Player player;
-    Movement playerMovement;
     Animator anim;
     AudioSource audioSource;
     CharacterStatistics playerStats;
+	Rigidbody rb;
 
     public Transform head;
 
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour {
 
     public List<Enemy> detectedEnemies = new List<Enemy> ();
 
+	[Header("Attack Slots")]
     public List<Ability> slotOneAttacks = new List<Ability>();
     public List<Ability> slotTwoAttacks = new List<Ability> ();
     public List<Ability> slotThreeAttacks = new List<Ability> ();
@@ -97,13 +98,18 @@ public class Player : MonoBehaviour {
         }
     }
 
+	[Header("Movement Stats")]
+	public float movementSpeed;
+	public float turnSpeed;
+	Coroutine movementRoutine;
+
     private void Awake()
     {
         player = this;
-        playerMovement = GetComponent<Movement> ();
         anim = GetComponent<Animator> ();
         audioSource = GetComponent<AudioSource> ();
         playerStats = GetComponent<CharacterStatistics> ();
+		rb = GetComponent<Rigidbody> ();
         playerStats.onDeath += OnDeath;
 
         SetAttackSlot (1, 0);
@@ -140,6 +146,10 @@ public class Player : MonoBehaviour {
 
         Cooldown ();
 	} 
+
+	void FixedUpdate () {
+		DirectMovement ();
+	}
 
 #region helpers
     [Command]
@@ -206,7 +216,8 @@ public class Player : MonoBehaviour {
 
     IEnumerator InteractionProtocol()
     {
-        GetComponent<Movement> ().StopMoving ();
+		//Wait for an appropriate interval
+//        GetComponent<Movement> ().StopMoving ();
         yield return new WaitForSeconds (interactWaitTime);
         canMove = false;
         anim.SetTrigger ("Interact");
@@ -355,19 +366,20 @@ public class Player : MonoBehaviour {
             yield break;
         }
 
-        if (playerMovement.movementRoutine != null)
-        {
-            StopCoroutine (playerMovement.movementRoutine);
-        }
+//        if (playerMovement.movementRoutine != null)
+//        {
+//            StopCoroutine (playerMovement.movementRoutine);
+//        }
 
         if (Vector3.Distance(transform.position, detectedEnemies[0].transform.position) > targetAbility.range)
         {
-            playerMovement.ProcMove(detectedEnemies[0].transform.position, targetAbility.range);
-            playerMovement.onArrived = OnAttackArrive;
-            while (playerMovement.movementRoutine != null)
-            {
-                yield return null;
-            }
+			//If too far away, move closer to the enemy
+//            playerMovement.ProcMove(detectedEnemies[0].transform.position, targetAbility.range);
+//            playerMovement.onArrived = OnAttackArrive;
+//            while (playerMovement.movementRoutine != null)
+//            {
+//                yield return null;
+//            }
             yield return new WaitForSeconds(0.5f);
         }
         else
@@ -511,8 +523,7 @@ public class Player : MonoBehaviour {
     {
 
     }
-
-
+		
     public void EquipItemOnCharacter (GameObject template, UIEquipmentType equipType)
     {
         switch (equipType)
@@ -531,6 +542,25 @@ public class Player : MonoBehaviour {
         }
     }
 
-   
+	#region Movement
+
+	void DirectMovement () {
+		Vector2 directionalInput = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
+
+		rb.MovePosition (transform.position + transform.forward * directionalInput.y * movementSpeed * Time.deltaTime);
+		rb.MoveRotation (transform.rotation * Quaternion.Euler (0, directionalInput.x * turnSpeed * Time.deltaTime, 0));
+	}
+
+	void ProcMoveToPoint () {
+		if (movementRoutine != null) {
+			StopCoroutine (movementRoutine);
+		}
+	}
+
+	IEnumerator MoveToPoint () {
+		yield break;
+	}
+
+	#endregion
 }
 
