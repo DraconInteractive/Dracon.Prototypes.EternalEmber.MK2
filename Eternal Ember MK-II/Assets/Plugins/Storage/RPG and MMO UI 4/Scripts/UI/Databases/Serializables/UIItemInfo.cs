@@ -24,7 +24,7 @@ namespace DuloGames.UI
         public int Durability;
         public int RequiredLevel;
 		public Vector3 cost;
-
+	
         public void TestVoid ()
         {
             foreach (KeyValuePair<string, float> attachStat in ItemAttributes)

@@ -37,4 +37,8 @@ public class MerchantCanvas : MonoBehaviour {
 
 		window.Show ();
 	}
+
+	public void BuyItem (UIItemSlot slot) {
+		slot.GetItemInfo ();
+	}
 }
