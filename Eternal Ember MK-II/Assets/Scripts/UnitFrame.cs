@@ -38,6 +38,8 @@ public class UnitFrame : MonoBehaviour {
         hpText.text = hpt.ToString() + "%";
         mpText.text = mpt.ToString() + "%";
         levelText.text = stats.level.current.ToString();
+
+		Invoke ("UpdateFrame", 0.2f);
     }
 
     void SetupFrame ()

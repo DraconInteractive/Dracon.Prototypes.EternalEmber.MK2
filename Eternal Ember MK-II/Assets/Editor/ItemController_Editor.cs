@@ -108,6 +108,9 @@ public class Item_Editor : Editor
         {
             myTarget.Sort ();
         }
+		if (GUILayout.Button("Set Cost")) {
+			myTarget.SetCost ();
+		}
 
         serializedObject.ApplyModifiedProperties ();
     }

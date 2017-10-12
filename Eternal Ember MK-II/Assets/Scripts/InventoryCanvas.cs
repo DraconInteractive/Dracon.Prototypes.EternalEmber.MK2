@@ -32,6 +32,18 @@ public class InventoryCanvas : MonoBehaviour {
         }
     }
 
+	public void ToggleInventory (bool state) {
+		if (state == invWindow.IsOpen) {
+			return;
+		}
+		if (state) {
+			invWindow.Show ();
+			PopulateInventorySlots ();
+		} else {
+			invWindow.Hide ();
+		}
+	}
+
     public void PopulateInventorySlots ()
     {
         print("Populating Slots");

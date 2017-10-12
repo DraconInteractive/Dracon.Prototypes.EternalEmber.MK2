@@ -29,3 +29,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d660b82aa452d124a9e6968bce7f0fcf, type: 2}
   questItem: 0
   itemRecipe: {fileID: 0}
+  cost: 000150
+  convertedCost: {x: 0, y: 1, z: 50}

@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour {
     public float stoppingDistance;
     public GameObject selection;
 
-    public enum ActionType { Converse, Loot, Information, Door, Quest, CraftingTable, Resource };
+    public enum ActionType { Converse, Loot, Information, Door, Quest, CraftingTable, Resource, MerchantDesk };
     public ActionType i_type;
 
     public  GameObject associateCanvas;
@@ -114,7 +114,7 @@ public class Interactable : MonoBehaviour {
 
 //        playerMovement.ProcMove (transform.position, stoppingDistance);
 //        playerMovement.onArrived = BeginInteract;
-
+		BeginInteract ();
     }
 
     private void OnMouseEnter()
@@ -214,6 +214,11 @@ public class Interactable : MonoBehaviour {
 
                 invRSlots[0].Assign(infoR);
                 break;
+			case ActionType.MerchantDesk:
+				MerchantDesk desk = GetComponent<MerchantDesk> ();
+				MerchantCanvas canvas = UnitFrame.playerFrame.GetComponent<MerchantCanvas> ();
+				canvas.ProcOpenWindow (desk.itemsToAdd);
+				break;
         }
         yield break;
     }

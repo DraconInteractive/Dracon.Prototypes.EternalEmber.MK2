@@ -20,11 +20,10 @@ namespace DuloGames.UI
 		public float AttackSpeed;
 		public int Block;
 		public int Armor;
-        //public int Stamina;
-        //public int Strength;
         public Dictionary<string, float> ItemAttributes = new Dictionary<string, float>();
         public int Durability;
         public int RequiredLevel;
+		public Vector3 cost;
 
         public void TestVoid ()
         {

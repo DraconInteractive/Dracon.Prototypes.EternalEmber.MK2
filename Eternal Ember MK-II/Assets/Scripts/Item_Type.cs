@@ -32,6 +32,11 @@ public class Item_Type : ScriptableObject
     public bool questItem;
 
     public Recipe itemRecipe;
+
+	public string cost;
+
+	public Vector3 convertedCost;
+
     public void Sort ()
     {
         foreach (ItemController control in controllers)
@@ -45,6 +50,25 @@ public class Item_Type : ScriptableObject
 
         Debug.Log ("Done sorting: " + itemName);
     }
+
+	public void SetCost () {
+		//int hexCost = int.Parse (cost, System.Globalization.NumberStyles.HexNumber);
+		float copper = 0;
+		float silver = 0;
+		float gold = 0;
+
+		string s;
+		char[] chars;
+
+		//s = cost.ToString ();
+		chars = cost.ToCharArray ();
+
+		copper = int.Parse (chars[chars.Length - 2].ToString() + chars [chars.Length - 1].ToString());
+		silver = int.Parse (chars [chars.Length - 4].ToString () + chars [chars.Length - 3].ToString ());
+		gold = int.Parse (chars [chars.Length - 6].ToString () + chars [chars.Length - 5].ToString ());
+		//copper = int.Parse (chars [index].ToString ());
+		convertedCost = new Vector3 (gold,silver,copper);
+	}
 
     public static UIItemInfo GetInfoFromItem (Item_Type item)
     {
@@ -81,6 +105,7 @@ public class Item_Type : ScriptableObject
 
         info.RequiredLevel = item.reqLevel;
         info.ItemType = item.uiItemType;
+		info.cost = item.convertedCost;
         return info;
     }
 }
