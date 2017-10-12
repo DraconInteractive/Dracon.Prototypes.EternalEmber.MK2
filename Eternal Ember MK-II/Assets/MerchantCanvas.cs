@@ -26,6 +26,7 @@ public class MerchantCanvas : MonoBehaviour {
 		UIItemSlot[] slots = window.GetComponentsInChildren<UIItemSlot> ();
 		foreach (UIItemSlot slot in slots) {
 			slot.Unassign ();
+			slot.GetComponent<ItemSlotTypeAssociate> ().assocItem = null;
 		}
 		for (int i = 0; i < itemsInWindow.Count; i++) {
 			slots [i].Assign (Item_Type.GetInfoFromItem (itemsInWindow [i]));
@@ -33,6 +34,7 @@ public class MerchantCanvas : MonoBehaviour {
 			coinContainer.transform.GetChild (0).transform.GetChild (0).GetComponent<Text> ().text = itemsInWindow [i].convertedCost.x.ToString();
 			coinContainer.transform.GetChild (1).transform.GetChild (0).GetComponent<Text> ().text = itemsInWindow [i].convertedCost.y.ToString();
 			coinContainer.transform.GetChild (2).transform.GetChild (0).GetComponent<Text> ().text = itemsInWindow [i].convertedCost.z.ToString();
+			slots[i].GetComponent<ItemSlotTypeAssociate> ().assocItem = itemsInWindow[i];
 		}
 
 		window.Show ();

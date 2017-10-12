@@ -35,6 +35,7 @@ public class CharacterStatistics : MonoBehaviour {
     public CharacterStatistic repairSkill, armourCraftSkill, weaponCraftSkill, runeCraftSkill;
     [HideInInspector]
     public CharacterStatistic collectionSkill;
+	public string currentMoney = "000000";
     public delegate void Die();
     public Die onDeath;
 
@@ -50,6 +51,9 @@ public class CharacterStatistics : MonoBehaviour {
     {
         CalculateResultants();
         StatisticInitiate ();
+
+		//DEBUG:
+		currentMoney = "202020";
     }
 
     private void Update()

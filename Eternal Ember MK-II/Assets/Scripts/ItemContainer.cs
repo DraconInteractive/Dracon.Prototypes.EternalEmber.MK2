@@ -25,7 +25,7 @@ public class ItemContainer : MonoBehaviour
         {
             p_Inventory.AddItem(item);
         }
-        
+		InventoryCanvas.invCanvas.PopulateInventorySlots ();
         GetComponent<Interactable>().uiWindow.Hide();
         Destroy(this);
     }

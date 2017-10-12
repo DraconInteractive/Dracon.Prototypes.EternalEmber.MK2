@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace DuloGames.UI
 {
+	
 	[Serializable]
 	public class UIItemInfo
 	{
@@ -24,15 +25,5 @@ namespace DuloGames.UI
         public int Durability;
         public int RequiredLevel;
 		public Vector3 cost;
-	
-        public void TestVoid ()
-        {
-            foreach (KeyValuePair<string, float> attachStat in ItemAttributes)
-            {
-                //Now you can access the key and value both separately from this attachStat as:
-                Debug.Log(attachStat.Key);
-                Debug.Log(attachStat.Value);
-            }
-        }
 	}
 }

@@ -7,11 +7,11 @@ using DuloGames.UI;
 public class InventoryCanvas : MonoBehaviour {
 
     public Player player;
-
+	public static InventoryCanvas invCanvas;
     public UIWindow invWindow;
 	// Use this for initialization
-	void Start () {
-        //gameObject.SetActive (false);
+	void Awake () {
+		invCanvas = this;
 	}
 
     private void Update()
