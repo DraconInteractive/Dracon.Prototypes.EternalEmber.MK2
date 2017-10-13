@@ -5,6 +5,9 @@ using UnityEngine;
 public class ItemSlotTypeAssociate : MonoBehaviour {
 	public Item_Type assocItem;
 
+	[Tooltip("If Applicable")]
+	public ItemContainer itemContainer;
+
 	public void BuyItem() {
 		//check for money, and if item adds, subtract money;
 		int playerMoney = int.Parse(CharacterStatistics.playerStatistics.currentMoney);
@@ -20,5 +23,12 @@ public class ItemSlotTypeAssociate : MonoBehaviour {
 		}
 		InventoryCanvas.invCanvas.PopulateInventorySlots ();
 		print ("End Buy");
+	}
+
+	public void AddItemToInventory () {
+		if (Player.player.playerInventory.AddItem(new Item(assocItem, 1))) {
+			itemContainer.itemsInContainer.Remove (assocItem);
+			InventoryCanvas.invCanvas.PopulateInventorySlots ();
+		}
 	}
 }

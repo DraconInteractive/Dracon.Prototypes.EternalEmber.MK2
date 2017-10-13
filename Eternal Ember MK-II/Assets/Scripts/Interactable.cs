@@ -184,20 +184,28 @@ public class Interactable : MonoBehaviour {
                 foreach (UIItemSlot slot in invSlots)
                 {
                     slot.Unassign();
+					slot.GetComponent<ItemSlotTypeAssociate> ().assocItem = null;
+					slot.GetComponent<ItemSlotTypeAssociate> ().itemContainer = container;
                 }
                 
-                int counter = 0;
-                string slotPop = "";
-                foreach (Item i in container.itemEquiv)
-                {
+               // int counter = 0;
+              //  string slotPop = "";
+				for (int a = 0; a < invSlots.Length - 1; a++) {
+					invSlots [a].Assign (Item_Type.GetInfoFromItem (container.itemsInContainer [a]));
+					invSlots[a].GetComponent<ItemSlotTypeAssociate> ().assocItem = container.itemsInContainer [a];
+				}
+				//foreach (Item_Type i in container.itemsInContainer)
+              //  {
                     
-                    slotPop += ("Slotpop: " + counter + "|" + i.itemName + "\n");
-                    UIItemInfo info = Item_Type.GetInfoFromItem(i.item_type); ;
-                    
-                    invSlots[counter].Assign(info);
-                    counter++;
-                }
-                print(slotPop);
+//                    slotPop += ("Slotpop: " + counter + "|" + i.itemName + "\n");
+//                    UIItemInfo info = Item_Type.GetInfoFromItem(i);
+//                    
+//                    invSlots[counter].Assign(info);
+                    //counter++;
+
+					//invSlots[counter].GetComponent<ItemSlotTypeAssociate> ().assocItem = i;
+               // }
+               // print(slotPop);
                 break;
             case ActionType.Resource:
                 Resource thisResource = GetComponent<Resource>();
