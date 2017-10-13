@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DuloGames.UI;
 
 public class ItemSlotTypeAssociate : MonoBehaviour {
 	public Item_Type assocItem;
@@ -18,7 +19,9 @@ public class ItemSlotTypeAssociate : MonoBehaviour {
 		if (playerMoney > itemCost) {
 			if (Player.player.playerInventory.AddItem (new Item (assocItem, 1))) {
 				playerMoney -= itemCost;
+
 				print ("Buy Successful");
+
 			}
 		}
 		InventoryCanvas.invCanvas.PopulateInventorySlots ();
@@ -28,7 +31,14 @@ public class ItemSlotTypeAssociate : MonoBehaviour {
 	public void AddItemToInventory () {
 		if (Player.player.playerInventory.AddItem(new Item(assocItem, 1))) {
 			itemContainer.itemsInContainer.Remove (assocItem);
+			itemContainer.GetComponent<Interactable> ().RefreshLootWindow ();
 			InventoryCanvas.invCanvas.PopulateInventorySlots ();
+		}
+
+		print ("Items left: " + itemContainer.itemsInContainer.Count);
+		if (itemContainer.itemsInContainer.Count == 0) {
+			print ("No more items left");
+			transform.parent.parent.parent.GetComponent<UIWindow> ().Hide();
 		}
 	}
 }

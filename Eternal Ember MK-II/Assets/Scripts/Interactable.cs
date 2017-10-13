@@ -145,6 +145,26 @@ public class Interactable : MonoBehaviour {
     {
         StartCoroutine (Interact ());
     }
+	public void RefreshLootWindow () {
+		ItemContainer container = GetComponent<ItemContainer>();
+		GameObject slotsContainer = uiWindow.transform.GetChild(2).transform.GetChild(1).transform.gameObject;
+
+		UIItemSlot[] invSlots = uiWindow.gameObject.GetComponentsInChildren<UIItemSlot>();
+
+		foreach (UIItemSlot slot in invSlots)
+		{
+			slot.Unassign();
+			slot.GetComponent<ItemSlotTypeAssociate> ().assocItem = null;
+			slot.GetComponent<ItemSlotTypeAssociate> ().itemContainer = container;
+		}
+
+		for (int a = 0; a < invSlots.Length - 1; a++) {
+			invSlots [a].Assign (Item_Type.GetInfoFromItem (container.itemsInContainer [a]));
+			invSlots[a].GetComponent<ItemSlotTypeAssociate> ().assocItem = container.itemsInContainer [a];
+		}
+
+
+	}
 
     IEnumerator Interact()
     {
