@@ -158,12 +158,15 @@ public class Interactable : MonoBehaviour {
 			slot.GetComponent<ItemSlotTypeAssociate> ().itemContainer = container;
 		}
 
-		for (int a = 0; a < invSlots.Length - 1; a++) {
+		for (int a = 0; a < container.itemsInContainer.Count; a++) {
+			print ("IVS: " + invSlots.Length + "CS: " + container.itemsInContainer.Count);
 			invSlots [a].Assign (Item_Type.GetInfoFromItem (container.itemsInContainer [a]));
 			invSlots[a].GetComponent<ItemSlotTypeAssociate> ().assocItem = container.itemsInContainer [a];
 		}
 
-
+		if (container.itemsInContainer.Count <= 0) {
+			container.transform.GetChild (0).transform.GetChild (0).GetComponent<UIWindow> ().Hide ();
+		}
 	}
 
     IEnumerator Interact()
@@ -208,24 +211,11 @@ public class Interactable : MonoBehaviour {
 					slot.GetComponent<ItemSlotTypeAssociate> ().itemContainer = container;
                 }
                 
-               // int counter = 0;
-              //  string slotPop = "";
-				for (int a = 0; a < invSlots.Length - 1; a++) {
+				for (int a = 0; a < container.itemsInContainer.Count; a++) {
+					print ("IVS: " + invSlots.Length + "CS: " + container.itemsInContainer.Count);
 					invSlots [a].Assign (Item_Type.GetInfoFromItem (container.itemsInContainer [a]));
 					invSlots[a].GetComponent<ItemSlotTypeAssociate> ().assocItem = container.itemsInContainer [a];
 				}
-				//foreach (Item_Type i in container.itemsInContainer)
-              //  {
-                    
-//                    slotPop += ("Slotpop: " + counter + "|" + i.itemName + "\n");
-//                    UIItemInfo info = Item_Type.GetInfoFromItem(i);
-//                    
-//                    invSlots[counter].Assign(info);
-                    //counter++;
-
-					//invSlots[counter].GetComponent<ItemSlotTypeAssociate> ().assocItem = i;
-               // }
-               // print(slotPop);
                 break;
             case ActionType.Resource:
                 Resource thisResource = GetComponent<Resource>();
