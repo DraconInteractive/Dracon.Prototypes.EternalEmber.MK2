@@ -54,6 +54,7 @@ public class Player : MonoBehaviour {
     public CharacterStatistic attackCooldown;
 
     public GameObject weaponAttachPoint;
+
     public bool InCombat
     {
         get
@@ -546,7 +547,8 @@ public class Player : MonoBehaviour {
 
 	void DirectMovement () {
 		Vector2 directionalInput = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
-
+		anim.SetFloat ("movementSpeed", directionalInput.y);
+		anim.SetFloat ("forwardSpeed", directionalInput.y);
 		rb.MovePosition (transform.position + transform.forward * directionalInput.y * movementSpeed * Time.deltaTime);
 		rb.MoveRotation (transform.rotation * Quaternion.Euler (0, directionalInput.x * turnSpeed * Time.deltaTime, 0));
 	}
