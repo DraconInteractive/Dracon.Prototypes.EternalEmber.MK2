@@ -1,0 +1,33 @@
+Created by Mikalai Naletska (huko3d.gomel@gmail.com)
+
+Polycount of meshes:
+
+Blade_01: 244 tris
+Blade_02: 244 tris
+Blade_03: 328 tris
+Blade_04: 360 tris
+Blade_05: 284 tris
+Blade_06: 358 tris
+
+Handle_01: 760 tris
+Handle_02: 1120 tris
+Handle_03: 500 tris
+Handle_04: 524 tris
+Handle_05: 384 tris
+Handle_06: 1300 tris
+
+Pommel_01: 960 tris
+Pommel_02: 972 tris
+Pommel_03: 236 tris
+Pommel_04: 1204 tris
+Pommel_05: 480 tris
+Pommel_06: 464 tris
+
+Quillon_01: 876 tris
+Quillon_02: 808 tris
+Quillon_03: 908 tris
+Quillon_04: 400 tris
+Quillon_05: 444 tris
+Quillon_06: 816 tris
+Quillon_07: 300 tris
+Quillon_08: 300 tris

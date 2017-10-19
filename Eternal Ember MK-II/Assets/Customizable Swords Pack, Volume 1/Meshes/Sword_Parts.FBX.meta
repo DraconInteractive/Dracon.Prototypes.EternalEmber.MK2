@@ -1,0 +1,203 @@
+fileFormatVersion: 2
+guid: 4592377119846314589fc20909d6dd76
+timeCreated: 1467967280
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Blade_01
+    100002: Blade_02
+    100004: Blade_03
+    100006: Blade_04
+    100008: Blade_05
+    100010: Blade_06
+    100012: Handle_01
+    100014: Handle_02
+    100016: Handle_03
+    100018: Handle_04
+    100020: Handle_05
+    100022: Handle_06
+    100024: Pommel_01
+    100026: Pommel_02
+    100028: Pommel_03
+    100030: Pommel_04
+    100032: Pommel_05
+    100034: Pommel_06
+    100036: Quillon_01
+    100038: Quillon_02
+    100040: Quillon_03
+    100042: Quillon_04
+    100044: Quillon_05
+    100046: Quillon_06
+    100048: Quillon_07
+    100050: Quillon_08
+    100052: //RootNode
+    400000: Blade_01
+    400002: Blade_02
+    400004: Blade_03
+    400006: Blade_04
+    400008: Blade_05
+    400010: Blade_06
+    400012: Handle_01
+    400014: Handle_02
+    400016: Handle_03
+    400018: Handle_04
+    400020: Handle_05
+    400022: Handle_06
+    400024: Pommel_01
+    400026: Pommel_02
+    400028: Pommel_03
+    400030: Pommel_04
+    400032: Pommel_05
+    400034: Pommel_06
+    400036: Quillon_01
+    400038: Quillon_02
+    400040: Quillon_03
+    400042: Quillon_04
+    400044: Quillon_05
+    400046: Quillon_06
+    400048: Quillon_07
+    400050: Quillon_08
+    400052: //RootNode
+    2300000: Blade_01
+    2300002: Blade_02
+    2300004: Blade_03
+    2300006: Blade_04
+    2300008: Blade_05
+    2300010: Blade_06
+    2300012: Handle_01
+    2300014: Handle_02
+    2300016: Handle_03
+    2300018: Handle_04
+    2300020: Handle_05
+    2300022: Handle_06
+    2300024: Pommel_01
+    2300026: Pommel_02
+    2300028: Pommel_03
+    2300030: Pommel_04
+    2300032: Pommel_05
+    2300034: Pommel_06
+    2300036: Quillon_01
+    2300038: Quillon_02
+    2300040: Quillon_03
+    2300042: Quillon_04
+    2300044: Quillon_05
+    2300046: Quillon_06
+    2300048: Quillon_07
+    2300050: Quillon_08
+    3300000: Blade_01
+    3300002: Blade_02
+    3300004: Blade_03
+    3300006: Blade_04
+    3300008: Blade_05
+    3300010: Blade_06
+    3300012: Handle_01
+    3300014: Handle_02
+    3300016: Handle_03
+    3300018: Handle_04
+    3300020: Handle_05
+    3300022: Handle_06
+    3300024: Pommel_01
+    3300026: Pommel_02
+    3300028: Pommel_03
+    3300030: Pommel_04
+    3300032: Pommel_05
+    3300034: Pommel_06
+    3300036: Quillon_01
+    3300038: Quillon_02
+    3300040: Quillon_03
+    3300042: Quillon_04
+    3300044: Quillon_05
+    3300046: Quillon_06
+    3300048: Quillon_07
+    3300050: Quillon_08
+    4300000: Handle_05
+    4300002: Handle_02
+    4300004: Handle_06
+    4300006: Handle_03
+    4300008: Handle_04
+    4300010: Blade_01
+    4300012: Blade_02
+    4300014: Blade_03
+    4300016: Blade_05
+    4300018: Blade_04
+    4300020: Blade_06
+    4300022: Quillon_01
+    4300024: Quillon_02
+    4300026: Quillon_06
+    4300028: Quillon_07
+    4300030: Quillon_08
+    4300032: Quillon_03
+    4300034: Quillon_05
+    4300036: Quillon_04
+    4300038: Pommel_06
+    4300040: Pommel_01
+    4300042: Pommel_04
+    4300044: Pommel_03
+    4300046: Pommel_05
+    4300048: Pommel_02
+    4300050: Handle_01
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

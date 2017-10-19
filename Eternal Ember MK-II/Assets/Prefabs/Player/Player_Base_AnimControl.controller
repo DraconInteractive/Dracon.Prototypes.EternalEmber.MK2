@@ -65,7 +65,7 @@ BlendTree:
   m_Name: Combat
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 6ca731fd84d6f4a44bd57aa069186ef9, type: 3}
+    m_Motion: {fileID: 7400042, guid: f8216b9196d0fb04aad111a3c429257d, type: 3}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -73,7 +73,7 @@ BlendTree:
     m_DirectBlendParameter: movementType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f2c1d48120ff49c419050488b5fdfe8d, type: 3}
+    m_Motion: {fileID: 7400002, guid: 7c3c4d895ee89ce43b0e1138cc8994e0, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -81,7 +81,7 @@ BlendTree:
     m_DirectBlendParameter: movementType
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b093e573ca387a1459010ed43a16d2ad, type: 3}
+    m_Motion: {fileID: 7400034, guid: f8216b9196d0fb04aad111a3c429257d, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
