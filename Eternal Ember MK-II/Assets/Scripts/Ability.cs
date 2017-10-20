@@ -21,11 +21,12 @@ public class Ability : ScriptableObject {
     public virtual bool ProcAbility (GameObject target)
     {
         //Debug.Log("Ability " + abilityName + " called");
-        Player.player.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
+        
         CharacterStatistics stat = Player.player.GetComponent<CharacterStatistics>();
         if (stat.mana.current > cost)
         {
             Debug.Log("Attack returned true");
+			Player.player.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
             stat.Damage(stat.mana, -cost);
             return true;
         } 

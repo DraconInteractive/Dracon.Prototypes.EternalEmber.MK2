@@ -29,7 +29,6 @@ public class Player : MonoBehaviour {
 
     public Inventory playerInventory = new Inventory ();
     public InventoryCanvas inv_canvas;
-    public AttackCanvas attackCanvas;
     public GameObject pauseCanvas;
 
     public float detectionDistance;
@@ -73,8 +72,6 @@ public class Player : MonoBehaviour {
             {
                 anim.SetFloat ("movementType", 0);
             }
-
-            attackCanvas.gameObject.SetActive (value);
         }
     }
 
@@ -113,10 +110,6 @@ public class Player : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
         playerStats.onDeath += OnDeath;
 
-        SetAttackSlot (1, 0);
-        SetAttackSlot (2, 0);
-        SetAttackSlot (3, 0);
-
     }
     // Use this for initialization
     void Start () {
@@ -131,20 +124,11 @@ public class Player : MonoBehaviour {
     [Command]
     public void DMG(float amount)
     {
+		print ("Damage Function Called");
         playerStats.Damage(playerStats.health, amount);
     }
     // Update is called once per frame
     void Update () {
-		//if (Input.GetKeyDown(KeyCode.I))
-  //      {
-  //          inv_canvas.gameObject.SetActive (!inv_canvas.gameObject.activeSelf);
-  //      }
-
-        if (attackCanvas.gameObject.activeSelf)
-        {
-            attackCanvas.transform.GetChild(0).transform.position = Camera.main.WorldToScreenPoint (detectedEnemies[0].transform.position + Vector3.up * 2.5f);
-        }
-
         Cooldown ();
 	} 
 
@@ -298,7 +282,6 @@ public class Player : MonoBehaviour {
             if (detectedEnemies.Count > 0 && !inCombat)
             {
                 InCombat = true;
-                StartCoroutine (PauseForCombat ());
             }
 
             if (detectedEnemies.Count == 0 && inCombat)
@@ -312,96 +295,23 @@ public class Player : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator PauseForCombat ()
-    {
-        Time.timeScale = 0;
-        pauseCanvas.SetActive (true);
-        bool unPause = false;
-        while (!unPause)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                unPause = true;
-            }
-            yield return null;
-        }
-        if (!GameMenuCanvas.thisCanvas.menuOpen)
-        {
-            Time.timeScale = 1;
-        }
-        
-        pauseCanvas.SetActive (false);
-        yield break;
-    }
-
-    public void ProcCombatProtocol (int i)
+	public void ProcCombatProtocol (Ability targetAbility)
     {
         if (actionRoutine != null && attackCooldown.current <= 0)
         {
             StopCoroutine (actionRoutine);
         }
-        actionRoutine = StartCoroutine (CombatProtocol (i));
+        actionRoutine = StartCoroutine (CombatProtocol (targetAbility));
     }
 
-    IEnumerator CombatProtocol (int attackType)
+	IEnumerator CombatProtocol (Ability targetAbility)
     {
-        Ability targetAbility = null;
-        switch (attackType)
-        {
-            case 1:
-                targetAbility = slotOneAttacks[0];
-                break;
-            case 2:
-                targetAbility = slotTwoAttacks[0];
-                break;
-            case 3:
-                targetAbility = slotThreeAttacks[0];
-                break;
-            default:
-                targetAbility = slotOneAttacks[0];
-                break;
-        }
-
-        if (detectedEnemies.Count <= 0)
+		if (detectedEnemies.Count <= 0 || Vector3.Distance(transform.position, detectedEnemies[0].transform.position) > targetAbility.range)
         {
             yield break;
-        }
+        }        
+		//OnAttackArrive();
 
-//        if (playerMovement.movementRoutine != null)
-//        {
-//            StopCoroutine (playerMovement.movementRoutine);
-//        }
-
-        if (Vector3.Distance(transform.position, detectedEnemies[0].transform.position) > targetAbility.range)
-        {
-			//If too far away, move closer to the enemy
-//            playerMovement.ProcMove(detectedEnemies[0].transform.position, targetAbility.range);
-//            playerMovement.onArrived = OnAttackArrive;
-//            while (playerMovement.movementRoutine != null)
-//            {
-//                yield return null;
-//            }
-            yield return new WaitForSeconds(0.5f);
-        }
-        else
-        {
-            OnAttackArrive();
-        }
-
-        /*
-        switch (attackType)
-        {
-            case 1:
-                atk_function_one (detectedEnemies[0].gameObject);
-                break;
-            case 2:
-                atk_function_two (detectedEnemies[0].gameObject);
-                break;
-            case 3:
-                atk_function_three (detectedEnemies[0].gameObject);
-                break;
-        }
-        */
         bool b = targetAbility.ProcAbility(detectedEnemies[0].gameObject);
         if (!b)
         {
@@ -409,8 +319,7 @@ public class Player : MonoBehaviour {
         }
         float delay = targetAbility.damageDelay;
         if (targetAbility.delayByDistance)
-        {
-            //float dist = 
+        { 
             delay += Vector3.Distance(detectedEnemies[0].transform.position, transform.position) * 0.05f;
         }
         yield return new WaitForSeconds(delay);
@@ -425,99 +334,7 @@ public class Player : MonoBehaviour {
     {
 
     }
-
-    public void AttackSlotCycle (int slot, bool up)
-    {
-        switch (slot)
-        {
-            case 1:
-                int i = slotOneIndex;
-                if (up)
-                {
-                    i++;
-                    if (i > slotOneAttacks.Count - 1)
-                    {
-                        i = 0;
-                    }
-                }
-                else
-                {
-                    i--;
-                    if (i < 0)
-                    {
-                        i = slotOneAttacks.Count - 1;
-                    }
-                }
-
-                SetAttackSlot (1, i);
-                break;
-            case 2:
-                int ii = slotTwoIndex;
-                if (up)
-                {
-                    ii++;
-                    if (ii > slotTwoAttacks.Count - 1)
-                    {
-                        ii = 0;
-                    }
-                }
-                else
-                {
-                    ii--;
-                    if (ii < 0)
-                    {
-                        ii = slotTwoAttacks.Count - 1;
-                    }
-                }
-
-                SetAttackSlot (2, ii);
-                break;
-            case 3:
-                int iii = slotThreeIndex;
-                if (up)
-                {
-                    iii++;
-                    if (iii > slotThreeAttacks.Count - 1)
-                    {
-                        iii = 0;
-                    }
-                }
-                else
-                {
-                    iii--;
-                    if (iii < 0)
-                    {
-                        iii = slotThreeAttacks.Count - 1;
-                    }
-                }
-
-                SetAttackSlot (3, iii);
-                break;
-        }
-    }
-
-    public void SetAttackSlot (int slot, int index)
-    {
-        switch (slot)
-        {
-            case 1:
-                atk_function_one = slotOneAttacks[index].ProcAbility;
-                slotOneIndex = index;
-                attackCanvas.SetAttackIcon (1, slotOneAttacks[index].abilityIcon);
-                break;
-            case 2:
-                //print ("Called Slot Two SetSlot");
-                atk_function_two = slotTwoAttacks[index].ProcAbility;
-                slotTwoIndex = index;
-                attackCanvas.SetAttackIcon (2, slotTwoAttacks[index].abilityIcon);
-                break;
-            case 3:
-                atk_function_three = slotThreeAttacks[index].ProcAbility;
-                slotThreeIndex = index;
-                attackCanvas.SetAttackIcon (3, slotThreeAttacks[index].abilityIcon);
-                break;
-        }
-    }
+		
 #endregion
 
     void OnDeath ()

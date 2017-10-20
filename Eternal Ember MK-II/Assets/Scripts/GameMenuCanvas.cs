@@ -27,10 +27,7 @@ public class GameMenuCanvas : MonoBehaviour {
         }
         else
         {
-            if (!Player.player.pauseCanvas.activeSelf)
-            {
-                Time.timeScale = 1;
-            }
+			Time.timeScale = 1;
             menuOpen = false;
         }
     }

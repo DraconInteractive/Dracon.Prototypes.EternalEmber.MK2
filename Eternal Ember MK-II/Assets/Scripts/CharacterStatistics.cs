@@ -39,6 +39,7 @@ public class CharacterStatistics : MonoBehaviour {
     public delegate void Die();
     public Die onDeath;
 
+	bool isEnemy;
 
     private void Awake()
     {
@@ -46,6 +47,9 @@ public class CharacterStatistics : MonoBehaviour {
         {
             playerStatistics = this;
         }
+		if (GetComponent<Enemy>()) {
+			isEnemy = true;
+		}
     }
     private void Start()
     {
@@ -53,7 +57,7 @@ public class CharacterStatistics : MonoBehaviour {
         StatisticInitiate ();
 
 		//DEBUG:
-		currentMoney = "202020";
+		//currentMoney = "202020";
     }
 
     private void Update()
@@ -81,10 +85,14 @@ public class CharacterStatistics : MonoBehaviour {
         }
         stat.current = Mathf.Clamp (stat.current, 0, stat.maximum);
 
-        if (gameObject == Player.player.gameObject)
-        {
-            UnitFrame.playerFrame.UpdateFrame();
-        }
+//        if (gameObject == Player.player.gameObject)
+//        {
+//			ActionBarCanvas.actionBar.UpdateActionBar ();
+//        }
+
+		if (isEnemy) {
+			GetComponent<Enemy> ().OnHit ();
+		}
     }
 
 
