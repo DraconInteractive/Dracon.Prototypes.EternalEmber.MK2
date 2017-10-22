@@ -202,16 +202,7 @@ namespace DuloGames.UI
 			if (this.onClick != null)
 				this.onClick.Invoke(this);
 			
-			// Handle cooldown just for the demonstration
-			if (this.m_Cooldown != null)
-			{
-				// If the spell is not on cooldown
-				if (!this.m_Cooldown.IsOnCooldown)
-				{
-					// Start the cooldown
-					this.m_Cooldown.StartCooldown(this.m_SpellInfo.ID, this.m_SpellInfo.Cooldown);
-				}
-			}
+
 		}
 		
 		/// <summary>

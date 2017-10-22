@@ -17,5 +17,7 @@ namespace DuloGames.UI
 	
 		[BitMask(typeof(UISpellInfo_Flags))]
 		public UISpellInfo_Flags Flags;
+
+
 	}
 }

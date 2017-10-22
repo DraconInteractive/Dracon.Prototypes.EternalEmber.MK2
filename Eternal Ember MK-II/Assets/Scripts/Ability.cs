@@ -5,7 +5,10 @@ using UnityEngine.UI;
 using DuloGames.UI;
 
 public class Ability : ScriptableObject {
-    string abilityName;
+
+	public int ID;
+    public string abilityName;
+	public string abilityDesc;
     public float range, damage, damageDelay;
     public bool delayByDistance;
 
@@ -16,8 +19,16 @@ public class Ability : ScriptableObject {
 
     public Sprite abilityIcon;
 
-
     public float cost;
+	public float cooldown;
+
+	public enum Stat {None, Accuracy, Damage};
+	public Stat AffectedStat;
+	public enum Affect {None, Ignite};
+	public Affect AppliedEffect;
+
+	public bool requiresEnemy;
+
     public virtual bool ProcAbility (GameObject target)
     {
         //Debug.Log("Ability " + abilityName + " called");
@@ -50,9 +61,31 @@ public class Ability : ScriptableObject {
                 }
                 break;
             case Effect.StatChange:
+			switch (AffectedStat) {
+			case Stat.Accuracy:
+				Player.player.ProcApplyStatChange (Player.player.playerStats.meleeAccuracy, damage, range);
+				Player.player.ProcApplyStatChange (Player.player.playerStats.rangedAccuracy, damage, range);
+				break;
+			}
                 break;
-            case Effect.Status:
+		case Effect.Status:
+			Player.player.ProcStatus (Affect.Ignite, damage, range);
                 break;
         }
     }
+
+
+
+	public static UISpellInfo CreateSpellInfoFromAbility (Ability a) {
+		UISpellInfo info = new UISpellInfo ();
+		info.ID = a.ID;
+		info.Name = a.name;
+		info.Icon = a.abilityIcon;
+		info.Description = a.abilityDesc;
+		info.Range = a.range;
+		info.Cooldown = a.cooldown;
+		info.CastTime = a.damageDelay;
+		info.PowerCost = a.cost;
+		return info;
+	}
 }

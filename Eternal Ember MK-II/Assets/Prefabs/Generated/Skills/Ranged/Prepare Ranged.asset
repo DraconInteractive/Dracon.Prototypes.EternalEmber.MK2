@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6ca3c91dd1fe649944c1eda9663157, type: 3}
+  m_Name: Prepare Ranged
+  m_EditorClassIdentifier: 
+  ID: 7
+  abilityName: Prepare Ranged
+  abilityDesc: Take a moment, breath, and increase accuracy.
+  range: 20
+  damage: 10
+  damageDelay: 0
+  delayByDistance: 0
+  animationName: Magic
+  effect: 1
+  abilityIcon: {fileID: 21300000, guid: 896921fdcfd2a8d4c93a3767adc08e22, type: 3}
+  cost: 10
+  cooldown: 4
+  AffectedStat: 1
+  AppliedEffect: 0
+  atk_type: 1

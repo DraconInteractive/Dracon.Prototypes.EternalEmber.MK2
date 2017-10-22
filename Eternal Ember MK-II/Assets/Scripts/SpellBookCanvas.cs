@@ -12,6 +12,8 @@ public class SpellBookCanvas : MonoBehaviour {
     public UISpellSlot[] skills, spells;
     public UITalentApply[] talents;
     public Spell [] allSpells;
+	public Attack [] allSkills;
+	Skill a;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,7 +29,7 @@ public class SpellBookCanvas : MonoBehaviour {
 
     public void OnWindowOpen ()
     {
-        spells = spellContainer.GetComponentsInChildren<UISpellSlot>();
+        spells = spellContainer.GetComponentsInChildren<UISpellSlot>(true);
         for (int i = 0; i < spells.Length; i ++)
         {
             spells[i].Assign(allSpells[i].assocSpell.info);
@@ -40,8 +42,16 @@ public class SpellBookCanvas : MonoBehaviour {
         for (int i = 0; i < talents.Length; i++)
         {
             talents[i].Apply();
-            
         }
+		skills = skillContainer.GetComponentsInChildren<UISpellSlot> (true);
+		for (int i = 0; i < skills.Length; i++) {
+			UISpellInfo nInfo = Ability.CreateSpellInfoFromAbility (allSkills [i].assocAttack);
+			skills [i].Assign (nInfo);
+			GameObject infoObj = skills [i].GetComponent<SpellSlotInfoLink> ().infoObject;
+			infoObj.transform.GetChild (1).GetComponent<Text> ().text = allSkills [i].assocAttack.abilityDesc;
+			infoObj.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = allSkills[i].assocAttack.abilityName;
+			infoObj.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text = "Rank <b>" + allSkills[i].Rank.ToString() + "</b>";
+		}
     }
 }
 [Serializable]
@@ -49,6 +59,13 @@ public class Spell
 {
     public Spell_Type assocSpell;
     public int Rank;
+}
+
+[Serializable]
+public class Attack
+{
+	public Ability assocAttack;
+	public int Rank;
 }
 
 

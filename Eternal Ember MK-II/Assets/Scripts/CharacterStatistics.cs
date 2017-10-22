@@ -23,6 +23,8 @@ public class CharacterStatistics : MonoBehaviour {
     public CharacterStatistic meleeResist, magicResist;
     [HideInInspector]
     public CharacterStatistic dodgeChance;
+	[HideInInspector]
+	public CharacterStatistic meleeAccuracy, rangedAccuracy;
     //Resultant misc statistic
     [HideInInspector]
     public CharacterStatistic persuasion;
@@ -128,6 +130,11 @@ public class CharacterStatistics : MonoBehaviour {
         magicResist.current = (level.current * wisdom.current * intelligence.current) * 0.1f;
 
         dodgeChance.current = (level.current * dexterity.current * (0.5f * intelligence.current));
+
+		meleeAccuracy.current = (level.current * dexterity.current * (0.5f * intelligence.current)); 
+		meleeAccuracy.current += meleeAccuracy.points;
+		rangedAccuracy.current = (level.current * dexterity.current * (0.5f * intelligence.current));
+		rangedAccuracy.current += rangedAccuracy.points;
 
         persuasion.current = level.current * charisma.current * (strength.current * intelligence.current) * 0.5f;
         moveSpeedMultiplier.current = 1 + (level.current + dexterity.current) * 0.01f;

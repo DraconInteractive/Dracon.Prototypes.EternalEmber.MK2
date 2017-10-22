@@ -11,7 +11,8 @@ public class Player : MonoBehaviour {
     public static Player player;
     Animator anim;
     AudioSource audioSource;
-    CharacterStatistics playerStats;
+	[HideInInspector]
+    public CharacterStatistics playerStats;
 	Rigidbody rb;
 
     public Transform head;
@@ -34,20 +35,6 @@ public class Player : MonoBehaviour {
     public float detectionDistance;
 
     public List<Enemy> detectedEnemies = new List<Enemy> ();
-
-	[Header("Attack Slots")]
-    public List<Ability> slotOneAttacks = new List<Ability>();
-    public List<Ability> slotTwoAttacks = new List<Ability> ();
-    public List<Ability> slotThreeAttacks = new List<Ability> ();
-
-    int slotOneIndex, slotTwoIndex, slotThreeIndex;
-
-    public delegate bool AttackFunctionOne (GameObject target);
-    public AttackFunctionOne atk_function_one;
-    public delegate bool AttackFunctionTwo(GameObject target);
-    public AttackFunctionTwo atk_function_two;
-    public delegate bool AttackFunctionThree(GameObject target);
-    public AttackFunctionThree atk_function_three;
 
     Coroutine actionRoutine;
     public CharacterStatistic attackCooldown;
@@ -96,6 +83,8 @@ public class Player : MonoBehaviour {
         }
     }
 
+	[HideInInspector]
+	public GameObject targetedEnemy;
 	[Header("Movement Stats")]
 	public float movementSpeed;
 	public float turnSpeed;
@@ -210,6 +199,35 @@ public class Player : MonoBehaviour {
         canMove = true;
         yield break;
     }
+
+	public void ProcApplyStatChange (CharacterStatistic c, float power, float duration) {
+		StartCoroutine (ApplyStatChange (c, power, duration));
+	}
+
+	IEnumerator ApplyStatChange (CharacterStatistic c, float power, float duration) {
+		c.points += power;
+		yield return new WaitForSeconds (duration);
+		c.points -= power;
+		yield break;
+	}
+
+	public void ProcStatus (Ability.Affect a, float power, float duration) {
+		StartCoroutine (ApplyStatus(a, power, duration));
+	}
+
+	IEnumerator ApplyStatus (Ability.Affect a, float power, float duration) {
+		float t = 0;
+		switch (a) {
+		case Ability.Affect.Ignite:
+			while (t < duration) {
+				t += Time.deltaTime;
+				playerStats.Damage (playerStats.health, power * Time.deltaTime);
+				yield return null;
+			}
+			break;
+		}
+		yield break;
+	}
 
 #region animation recievers
     public void FootL ()
@@ -364,7 +382,7 @@ public class Player : MonoBehaviour {
 
 	void DirectMovement () {
 		Vector2 directionalInput = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
-		anim.SetFloat ("movementSpeed", directionalInput.y);
+//		anim.SetFloat ("movementSpeed", directionalInput.y);
 		anim.SetFloat ("forwardSpeed", directionalInput.y);
 		rb.MovePosition (transform.position + transform.forward * directionalInput.y * movementSpeed * Time.deltaTime);
 		rb.MoveRotation (transform.rotation * Quaternion.Euler (0, directionalInput.x * turnSpeed * Time.deltaTime, 0));
