@@ -22,7 +22,7 @@ public class Ability : ScriptableObject {
     public float cost;
 	public float cooldown;
 
-	public enum Stat {None, Accuracy, Damage};
+	public enum Stat {None, Accuracy, Damage, Resistance};
 	public Stat AffectedStat;
 	public enum Affect {None, Ignite};
 	public Affect AppliedEffect;
@@ -65,6 +65,10 @@ public class Ability : ScriptableObject {
 			case Stat.Accuracy:
 				Player.player.ProcApplyStatChange (Player.player.playerStats.meleeAccuracy, damage, range);
 				Player.player.ProcApplyStatChange (Player.player.playerStats.rangedAccuracy, damage, range);
+				break;
+			case Stat.Resistance:
+				Player.player.ProcApplyStatChange (Player.player.playerStats.meleeResist, damage, range);
+				Player.player.ProcApplyStatChange (Player.player.playerStats.magicResist, damage, range);
 				break;
 			}
                 break;
