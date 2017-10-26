@@ -8,8 +8,4 @@ public class Skill : Ability
     public enum Attack_Type { Melee, Ranged, Magic };
     public Attack_Type atk_type;
 
-    public override void ApplyEffect(GameObject target)
-    {
-        base.ApplyEffect(target);
-    }
 }
