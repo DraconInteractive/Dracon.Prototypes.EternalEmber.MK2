@@ -29,16 +29,37 @@ public class SpellBookCanvas : MonoBehaviour {
     public void OnWindowOpen ()
     {
         spells = spellContainer.GetComponentsInChildren<UISpellSlot>(true);
+		GameObject spellSlotPrefab = spells [0].transform.parent.gameObject;
+		for (int i = 0; i < allSpells.Length; i++) {
+			UISpellInfo nInfo = Ability.CreateSpellInfoFromAbility (allSpells [i].assocSpell);
+			if (i > spells.Length - 1) {
+				GameObject newSlot = Instantiate (spellSlotPrefab, spells [0].transform.parent.transform.parent);
+				UISpellSlot nSlot = newSlot.transform.GetChild(0).GetComponent<UISpellSlot> ();
 
-        for (int i = 0; i < spells.Length; i ++)
-        {
-			
-            spells[i].Assign(allSpells[i].assocSpell.info);
-            GameObject infoObj = spells[i].GetComponent<SpellSlotInfoLink>().infoObject;
-            infoObj.transform.GetChild(1).GetComponent<Text>().text = allSpells[i].assocSpell.info.Description;
-            infoObj.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = allSpells[i].assocSpell.info.Name;
-            infoObj.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text = "Rank <b>" + allSpells[i].Rank.ToString() + "</b>";
-        }
+				nSlot.Assign (nInfo);
+				GameObject infoObj = nSlot.GetComponent<SpellSlotInfoLink> ().infoObject;
+				infoObj.transform.GetChild (1).GetComponent<Text> ().text = allSpells [i].assocSpell.abilityDesc;
+				infoObj.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = allSpells[i].assocSpell.abilityName;
+				infoObj.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text = "Rank <b>" + allSpells[i].Rank.ToString() + "</b>";
+			} else {
+				spells [i].Assign (nInfo);
+				GameObject infoObj = spells [i].GetComponent<SpellSlotInfoLink> ().infoObject;
+				infoObj.transform.GetChild (1).GetComponent<Text> ().text = allSpells [i].assocSpell.abilityDesc;
+				infoObj.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = allSpells[i].assocSpell.abilityName;
+				infoObj.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text = "Rank <b>" + allSpells[i].Rank.ToString() + "</b>";
+			}
+
+		}
+//        for (int i = 0; i < spells.Length; i ++)
+//        {
+//			
+//            spells[i].Assign(allSpells[i].assocSpell.info);
+//            GameObject infoObj = spells[i].GetComponent<SpellSlotInfoLink>().infoObject;
+//            infoObj.transform.GetChild(1).GetComponent<Text>().text = allSpells[i].assocSpell.info.Description;
+//            infoObj.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = allSpells[i].assocSpell.info.Name;
+//            infoObj.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text = "Rank <b>" + allSpells[i].Rank.ToString() + "</b>";
+//        }
+
         talents = talentContainer.GetComponentsInChildren<UITalentApply>(true);
         for (int i = 0; i < talents.Length; i++)
         {
@@ -67,7 +88,6 @@ public class SpellBookCanvas : MonoBehaviour {
 				infoObj.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = allSkills[i].assocAttack.abilityName;
 				infoObj.transform.GetChild(0).transform.GetChild(1).GetComponent<Text>().text = "Rank <b>" + allSkills[i].Rank.ToString() + "</b>";
 			} else {
-				print ("AS: " + allSkills.Length + " S: " + skills.Length + "I: " + i);
 				skills [i].Assign (nInfo);
 				GameObject infoObj = skills [i].GetComponent<SpellSlotInfoLink> ().infoObject;
 				infoObj.transform.GetChild (1).GetComponent<Text> ().text = allSkills [i].assocAttack.abilityDesc;
@@ -81,7 +101,7 @@ public class SpellBookCanvas : MonoBehaviour {
 [Serializable]
 public class Spell
 {
-    public Spell_Type assocSpell;
+	public Ability assocSpell;
     public int Rank;
 }
 

@@ -15,7 +15,7 @@ public class Ability : ScriptableObject {
     public string animationName;
 
     public enum Effect { Damage, StatChange, Status};
-    public Effect effect;
+	public List<Effect> effects = new List<Effect>();
 
     public Sprite abilityIcon;
 
@@ -24,7 +24,7 @@ public class Ability : ScriptableObject {
 
 	public enum Stat {None, Accuracy, Damage, Resistance};
 	public Stat AffectedStat;
-	public enum Affect {None, Ignite};
+	public enum Affect {None, Ignite, Blind, Root};
 	public Affect AppliedEffect;
 
 	public bool requiresEnemy;
@@ -50,17 +50,15 @@ public class Ability : ScriptableObject {
 
     public virtual void ApplyEffect(GameObject target)
     {
+		if (effects.Contains(Effect.Damage)) {
+            CharacterStatistics targetHealth = target.GetComponent<CharacterStatistics>();
+            if (targetHealth != null)
+            {
+                targetHealth.Damage(targetHealth.health, -damage);
+            }
+		}
 
-        switch (effect)
-        {
-            case Effect.Damage:
-                CharacterStatistics targetHealth = target.GetComponent<CharacterStatistics>();
-                if (targetHealth != null)
-                {
-                    targetHealth.Damage(targetHealth.health, -damage);
-                }
-                break;
-            case Effect.StatChange:
+		if (effects.Contains (Effect.StatChange)) {
 			switch (AffectedStat) {
 			case Stat.Accuracy:
 				Player.player.ProcApplyStatChange (Player.player.playerStats.meleeAccuracy, damage, range);
@@ -71,11 +69,12 @@ public class Ability : ScriptableObject {
 				Player.player.ProcApplyStatChange (Player.player.playerStats.magicResist, damage, range);
 				break;
 			}
-                break;
-		case Effect.Status:
-			Player.player.ProcStatus (Affect.Ignite, damage, range);
-                break;
-        }
+		}
+
+		if (effects.Contains (Effect.Status)) {
+			Player.player.ProcStatus (AppliedEffect, damage, damageDelay);
+		}
+
     }
 
 

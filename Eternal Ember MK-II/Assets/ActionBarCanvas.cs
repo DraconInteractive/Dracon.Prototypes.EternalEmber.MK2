@@ -39,6 +39,6 @@ public class ActionBarCanvas : MonoBehaviour {
 			UpdateActionBar ();
 			yield return new WaitForSeconds (0.2f);
 		}
-		yield break;
+		//yield break;
 	}
 }

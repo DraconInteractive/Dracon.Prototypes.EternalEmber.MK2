@@ -8,31 +8,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 6e6ca3c91dd1fe649944c1eda9663157, type: 3}
   m_Name: Fireball
-  m_EditorClassIdentifier: Assembly-CSharp::Spell_Type
-  ID: 10
-  abilityName: 
-  abilityDesc: 
-  range: 5
-  damage: 0
+  m_EditorClassIdentifier: 
+  ID: 0
+  abilityName: Fireball
+  abilityDesc: Flaming death shall descend on your enemies
+  range: 10
+  damage: 10
   damageDelay: 0
   delayByDistance: 0
-  animationName: 
-  effect: 0
-  abilityIcon: {fileID: 0}
-  cost: 10
+  animationName: Magic
+  effects: 0000000002000000
+  abilityIcon: {fileID: 21300000, guid: 2c84528948a26c64791035625dfa5288, type: 3}
+  cost: 0
   cooldown: 0
   AffectedStat: 0
-  AppliedEffect: 0
+  AppliedEffect: 1
   requiresEnemy: 1
-  info:
-    ID: 0
-    Name: Fireball
-    Icon: {fileID: 21300000, guid: 20372abe491b1d84691ebce4efb330dd, type: 3}
-    Description: A flaming ball of destruction flies from thy fingertips
-    Range: 15
-    Cooldown: 2
-    CastTime: 1
-    PowerCost: 5
-    Flags: 2
+  atk_type: 2

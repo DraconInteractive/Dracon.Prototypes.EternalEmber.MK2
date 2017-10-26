@@ -19,10 +19,11 @@ MonoBehaviour:
   damageDelay: 0
   delayByDistance: 0
   animationName: Magic
-  effect: 1
+  effects: 01000000
   abilityIcon: {fileID: 21300000, guid: 896921fdcfd2a8d4c93a3767adc08e22, type: 3}
   cost: 10
   cooldown: 4
   AffectedStat: 1
   AppliedEffect: 0
+  requiresEnemy: 0
   atk_type: 1

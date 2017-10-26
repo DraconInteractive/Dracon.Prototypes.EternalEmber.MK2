@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cakeslice;
+
 [RequireComponent(typeof(CharacterStatistics))]
 public class Enemy : MonoBehaviour {
     public static List<Enemy> allEnemies = new List<Enemy> ();
@@ -12,6 +14,9 @@ public class Enemy : MonoBehaviour {
 
 	public enum HitResponse {Color, Animation};
 	public HitResponse hitResponse;
+
+	bool hasOutline;
+	Outline outline;
     public bool InCombat
     {
         get
@@ -26,21 +31,59 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+	bool targeted;
+	public GameObject targetedIndicator;
     private void Awake()
     {
         allEnemies.Add (this);
         enemyHealth = GetComponent<CharacterStatistics> ();
         enemyHealth.onDeath = OnDeath;
         anim = GetComponent<Animator> ();
+		outline = GetComponent<Outline> ();
+		if (outline != null) {
+			hasOutline = true;
+		} else {
+			hasOutline = false;
+		}
+		targetedIndicator.SetActive (false);
     }
     // Use this for initialization
     void Start () {
         InCombat = false;
+		if (hasOutline) {
+			outline.enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void OnMouseEnter () {
+		if (hasOutline) {
+			outline.enabled = true;
+		}
+	}
+
+	void OnMouseExit () {
+		if (hasOutline) {
+			outline.enabled = false;
+		}
+	}
+
+	void OnMouseDown () {
+		if (Player.player.targetedEnemy != null) {
+			Player.player.targetedEnemy.GetComponent<Enemy> ().ToggleTargeted(false);
+		}
+
+		Player.player.targetedEnemy = this.gameObject;
+		ToggleTargeted (true);
+	}
+
+	public void ToggleTargeted (bool state) {
+		targeted = state;
+		targetedIndicator.SetActive (state);
 	}
 
     void OnDeath ()

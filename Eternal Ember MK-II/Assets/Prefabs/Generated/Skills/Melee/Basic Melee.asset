@@ -19,7 +19,7 @@ MonoBehaviour:
   damageDelay: 0.5
   delayByDistance: 0
   animationName: Melee
-  effect: 0
+  effects: 00000000
   abilityIcon: {fileID: 21300000, guid: a7619aa36db68b547adcfc48d0cf2c62, type: 3}
   cost: 5
   cooldown: 2

@@ -18,8 +18,8 @@ MonoBehaviour:
   damage: 10
   damageDelay: 0
   delayByDistance: 0
-  animationName: 
-  effect: 1
+  animationName: Melee
+  effects: 01000000
   abilityIcon: {fileID: 21300000, guid: c1cab51ae4dd3124d8dd92aeb3d9a5da, type: 3}
   cost: 10
   cooldown: 2

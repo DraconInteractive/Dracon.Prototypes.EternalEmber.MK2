@@ -23,6 +23,11 @@ public class UITalentApply : MonoBehaviour {
         print(name + " applied");
         UITalentInfo info = new UITalentInfo();
         info.maxPoints = 5;
-        slot.Assign(info, targetSpell.assocSpell.info);
+		if (targetSpell.assocSpell != null) {
+			UISpellInfo nInfo = Ability.CreateSpellInfoFromAbility (targetSpell.assocSpell);
+			slot.Assign(info, nInfo);
+		}
+
+
     }
 }
