@@ -177,6 +177,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+	public float DistanceToTargetedEnemy () {
+		float dist = Vector3.Distance (transform.position, targetedEnemy.transform.position);
+		return dist;
+	}
     #endregion
 
     public void Interact()

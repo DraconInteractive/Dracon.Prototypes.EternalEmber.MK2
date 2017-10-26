@@ -13,6 +13,7 @@ public class Ability : ScriptableObject {
     public bool delayByDistance;
 
     public string animationName;
+	public int animationIndex;
 
     public enum Effect { Damage, StatChange, Status};
 	public List<Effect> effects = new List<Effect>();
@@ -37,6 +38,7 @@ public class Ability : ScriptableObject {
         if (stat.mana.current > cost)
         {
             Debug.Log("Attack returned true");
+			Player.player.GetComponent<Animator> ().SetInteger ("attackIndex", animationIndex);
 			Player.player.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
             stat.Damage(stat.mana, -cost);
             return true;

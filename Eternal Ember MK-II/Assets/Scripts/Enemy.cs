@@ -98,9 +98,10 @@ public class Enemy : MonoBehaviour {
 	public void OnHit () {
 		switch (hitResponse) {
 		case HitResponse.Color:
-			
+			StartCoroutine (PulseColor (0.2f, Color.red));
 			break;
 		case HitResponse.Animation:
+			anim.SetTrigger ("Damage");
 			break;
 		}
 	}
