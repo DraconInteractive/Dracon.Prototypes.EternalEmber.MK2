@@ -90,6 +90,7 @@ public class Player : MonoBehaviour {
 	public float turnSpeed;
 	Coroutine movementRoutine;
 
+	public Item_Type[] itemsToStartWith;
     private void Awake()
     {
         player = this;
@@ -108,6 +109,12 @@ public class Player : MonoBehaviour {
         
         StartCoroutine (Detection ());
         Minibuffer.Register (this);
+
+		foreach (Item_Type i in itemsToStartWith) {
+			playerInventory.AddItem (new Item (i, 1));
+		}
+		//DEBUG
+		EquipItem (playerInventory.FindItemInInventory ("Vampiric Spear").item_type);
     }
 
     [Command]
@@ -180,6 +187,14 @@ public class Player : MonoBehaviour {
 	public float DistanceToTargetedEnemy () {
 		float dist = Vector3.Distance (transform.position, targetedEnemy.transform.position);
 		return dist;
+	}
+
+	public void EquipItem (Item_Type i) {
+		Transform wap = weaponAttachPoint.transform;
+		while (wap.childCount > 0) {
+			Destroy (wap.GetChild (0).gameObject);
+		}
+		GameObject wep = Instantiate (i.itemPrefab, wap);
 	}
     #endregion
 

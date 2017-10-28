@@ -37,6 +37,8 @@ public class Item_Type : ScriptableObject
 
 	public Vector3 convertedCost;
 
+
+	public Vector3 handPosOffset, handRotOffset;
     public void Sort ()
     {
         foreach (ItemController control in controllers)
@@ -216,6 +218,17 @@ public class Inventory
 
         return null;
     }
+
+	public Item FindItemInInventory (string s) {
+		foreach (Item item in items) {
+			if (item.itemName == s) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
 }
 
 
