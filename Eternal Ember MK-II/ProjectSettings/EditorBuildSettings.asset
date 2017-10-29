@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/The Farm/The Farm_Town.unity
+    guid: 03b4070a0161a7a448fba7869c5902f7
+  - enabled: 0
     path: Assets/Scenes/Testing/Testing_SOne.unity
     guid: 563b9bb7450c7574ba42e2a1ba1dcd9b
   - enabled: 0
     path: Assets/Plugins/Storage/RPG and MMO UI 4/Scenes/In-Game.unity
     guid: 431cd552aa8a98a49886ad9456c5c81c
-  - enabled: 1
-    path: Assets/Scenes/The Farm/The Farm_Town.unity
-    guid: 03b4070a0161a7a448fba7869c5902f7
