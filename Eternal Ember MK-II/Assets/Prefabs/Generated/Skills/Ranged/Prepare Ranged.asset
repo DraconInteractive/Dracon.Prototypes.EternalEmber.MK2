@@ -11,19 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6ca3c91dd1fe649944c1eda9663157, type: 3}
   m_Name: Prepare Ranged
   m_EditorClassIdentifier: 
-  ID: 7
+  ID: 10
   abilityName: Prepare Ranged
   abilityDesc: Take a moment, breath, and increase accuracy.
   range: 20
-  damage: 10
   damageDelay: 0
   delayByDistance: 0
   animationName: Magic
-  effects: 01000000
+  animationIndex: 0
+  effects:
+  - type: 1
+    power: 10
+    duration: 15
+    AffectedStat: 1
+    EffectStatus: 0
   abilityIcon: {fileID: 21300000, guid: 896921fdcfd2a8d4c93a3767adc08e22, type: 3}
   cost: 10
   cooldown: 4
-  AffectedStat: 1
-  AppliedEffect: 0
   requiresEnemy: 0
   atk_type: 1

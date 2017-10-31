@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,26 +10,22 @@ public class Ability : ScriptableObject {
 	public int ID;
     public string abilityName;
 	public string abilityDesc;
-    public float range, damage, damageDelay;
+    public float range, damageDelay;
     public bool delayByDistance;
 
     public string animationName;
 	public int animationIndex;
 
-    public enum Effect { Damage, StatChange, Status};
-	public List<Effect> effects = new List<Effect>();
+   
+	public List<AbilityEffect> effects = new List<AbilityEffect>();
 
     public Sprite abilityIcon;
 
     public float cost;
 	public float cooldown;
 
-	public enum Stat {None, Accuracy, Damage, Resistance};
-	public Stat AffectedStat;
-	public enum Affect {None, Ignite, Blind, Root};
-	public Affect AppliedEffect;
-
-	public bool requiresEnemy;
+	public enum TargetType {Self, Enemy, EnemyRange};
+	public TargetType targetType;
 
     public virtual bool ProcAbility (GameObject target)
     {
@@ -52,34 +49,57 @@ public class Ability : ScriptableObject {
 
     public virtual void ApplyEffect(GameObject target)
     {
-		if (effects.Contains(Effect.Damage)) {
-            CharacterStatistics targetHealth = target.GetComponent<CharacterStatistics>();
-            if (targetHealth != null)
-            {
-                targetHealth.Damage(targetHealth.health, -damage);
-            }
-		}
+		foreach (AbilityEffect effect in effects) {
+			if (effect.type == AbilityEffect.EffectType.Damage) {
+				if (targetType == TargetType.Enemy) {
+					CharacterStatistics targetHealth = target.GetComponent<CharacterStatistics>();
+					if (targetHealth != null)
+					{
+						targetHealth.Damage(targetHealth.health, -effect.power);
+					}
+				} else if (targetType == TargetType.EnemyRange) {
+					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.duration);
+					List<Enemy> targetEnemies = new List<Enemy> ();
+					foreach (Collider c in colliders) {
+						Enemy e = c.gameObject.GetComponent<Enemy> ();
+						if (e != null) {
+							targetEnemies.Add (e);
+						}
+					}
+					foreach (Enemy enemy in targetEnemies) {
+						CharacterStatistics targetHealth = enemy.GetComponent<CharacterStatistics>();
+						if (targetHealth != null)
+						{
+							targetHealth.Damage(targetHealth.health, -effect.power);
+						}
+					}
+				}
 
-		if (effects.Contains (Effect.StatChange)) {
-			switch (AffectedStat) {
-			case Stat.Accuracy:
-				Player.player.ProcApplyStatChange (Player.player.playerStats.meleeAccuracy, damage, range);
-				Player.player.ProcApplyStatChange (Player.player.playerStats.rangedAccuracy, damage, range);
-				break;
-			case Stat.Resistance:
-				Player.player.ProcApplyStatChange (Player.player.playerStats.meleeResist, damage, range);
-				Player.player.ProcApplyStatChange (Player.player.playerStats.magicResist, damage, range);
-				break;
+			}
+			else if (effect.type == AbilityEffect.EffectType.StatChange) {
+				if (targetType == TargetType.Self) {
+					switch (effect.AffectedStat) {
+					case AbilityEffect.Stat.Accuracy:
+						Player.player.ProcApplyStatChange (Player.player.playerStats.meleeAccuracy, effect.power, effect.duration);
+						Player.player.ProcApplyStatChange (Player.player.playerStats.rangedAccuracy, effect.power, effect.duration);
+						break;
+					case AbilityEffect.Stat.Resistance:
+						Player.player.ProcApplyStatChange (Player.player.playerStats.meleeResist, effect.power, effect.duration);
+						Player.player.ProcApplyStatChange (Player.player.playerStats.magicResist, effect.power, effect.duration);
+						break;
+					}
+				}
+
+			}
+			else if (effect.type == AbilityEffect.EffectType.Status) {
+				Player.player.ProcStatus (effect.EffectStatus, effect.power, effect.duration);
 			}
 		}
 
-		if (effects.Contains (Effect.Status)) {
-			Player.player.ProcStatus (AppliedEffect, damage, damageDelay);
-		}
+
+
 
     }
-
-
 
 	public static UISpellInfo CreateSpellInfoFromAbility (Ability a) {
 		UISpellInfo info = new UISpellInfo ();
@@ -93,4 +113,19 @@ public class Ability : ScriptableObject {
 		info.PowerCost = a.cost;
 		return info;
 	}
+}
+
+[Serializable]
+public class AbilityEffect {
+	
+	public enum EffectType { Damage, StatChange, Status};
+	public EffectType type;
+
+	public float power, duration;
+
+	public enum Stat {None, Accuracy, Damage, Resistance};
+	public Stat AffectedStat;
+
+	public enum Status {None, Ignite, Blind, Root, Mark};
+	public Status EffectStatus;
 }

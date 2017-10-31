@@ -15,15 +15,18 @@ MonoBehaviour:
   abilityName: Ensnare
   abilityDesc: Hold your enemy in place, allowing for precious time and space
   range: 15
-  damage: 10
   damageDelay: 0
   delayByDistance: 0
   animationName: Magic
-  effects: 02000000
+  animationIndex: 0
+  effects:
+  - type: 2
+    power: 10
+    duration: 5
+    AffectedStat: 0
+    EffectStatus: 3
   abilityIcon: {fileID: 21300000, guid: 956c0a2e49054db4f84365968137e269, type: 3}
   cost: 10
-  cooldown: 0
-  AffectedStat: 0
-  AppliedEffect: 3
+  cooldown: 4
   requiresEnemy: 1
   atk_type: 2

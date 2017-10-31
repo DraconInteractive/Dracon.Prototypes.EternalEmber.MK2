@@ -14,16 +14,24 @@ MonoBehaviour:
   ID: 0
   abilityName: Meteor
   abilityDesc: Rain fire upon your enemies
-  range: 0
-  damage: 0
-  damageDelay: 0
+  range: 20
+  damageDelay: 0.5
   delayByDistance: 0
-  animationName: 
-  effects: 0000000002000000
+  animationName: Magic
+  animationIndex: 0
+  effects:
+  - type: 2
+    power: 10
+    duration: 5
+    AffectedStat: 0
+    EffectStatus: 1
+  - type: 0
+    power: 5
+    duration: 0
+    AffectedStat: 0
+    EffectStatus: 0
   abilityIcon: {fileID: 21300000, guid: c4c8f4afc6c8d364bbf3afe15ea7c3cd, type: 3}
-  cost: 0
-  cooldown: 0
-  AffectedStat: 0
-  AppliedEffect: 1
+  cost: 20
+  cooldown: 6
   requiresEnemy: 1
   atk_type: 2

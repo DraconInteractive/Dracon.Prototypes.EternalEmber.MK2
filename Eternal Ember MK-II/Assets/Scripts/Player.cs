@@ -230,18 +230,26 @@ public class Player : MonoBehaviour {
 		yield break;
 	}
 
-	public void ProcStatus (Ability.Affect a, float power, float duration) {
+	public void ProcStatus (AbilityEffect.Status a, float power, float duration) {
 		StartCoroutine (ApplyStatus(a, power, duration));
 	}
 
-	IEnumerator ApplyStatus (Ability.Affect a, float power, float duration) {
+	IEnumerator ApplyStatus (AbilityEffect.Status a, float power, float duration) {
+		CharacterStatistics c = targetedEnemy.GetComponent<CharacterStatistics> ();
+
 		float t = 0;
 		switch (a) {
-		case Ability.Affect.Ignite:
+		case AbilityEffect.Status.Ignite:
+			if (c.firePrefab != null) {
+				c.firePrefab.SetActive (true);
+			}
 			while (t < duration) {
 				t += Time.deltaTime;
-				playerStats.Damage (playerStats.health, power * Time.deltaTime);
+				c.Damage (playerStats.health, power * Time.deltaTime);
 				yield return null;
+			}
+			if (c.firePrefab != null) {
+				c.firePrefab.SetActive (false);
 			}
 			break;
 		}

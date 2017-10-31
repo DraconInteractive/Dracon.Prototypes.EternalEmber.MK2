@@ -11,19 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6ca3c91dd1fe649944c1eda9663157, type: 3}
   m_Name: Basic Ranged
   m_EditorClassIdentifier: 
-  ID: 5
+  ID: 8
   abilityName: Basic Ranged
   abilityDesc: A simple shot, but effective
   range: 10
-  damage: 10
   damageDelay: 0.5
   delayByDistance: 1
   animationName: Ranged
-  effects: 00000000
+  animationIndex: 0
+  effects:
+  - type: 0
+    power: 5
+    duration: 0
+    AffectedStat: 0
+    EffectStatus: 0
   abilityIcon: {fileID: 21300000, guid: db8571e2e93be644da70c644100593d1, type: 3}
   cost: 2
-  cooldown: 2
-  AffectedStat: 0
-  AppliedEffect: 0
+  cooldown: 1
   requiresEnemy: 1
   atk_type: 1

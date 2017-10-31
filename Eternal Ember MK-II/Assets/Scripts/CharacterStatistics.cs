@@ -38,6 +38,10 @@ public class CharacterStatistics : MonoBehaviour {
     [HideInInspector]
     public CharacterStatistic collectionSkill;
 	public string currentMoney = "000000";
+
+	public GameObject firePrefab;
+
+
     public delegate void Die();
     public Die onDeath;
 

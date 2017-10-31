@@ -11,19 +11,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6ca3c91dd1fe649944c1eda9663157, type: 3}
   m_Name: Chop
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 3
   abilityName: Chop
   abilityDesc: A quick sharp attack with devestating results
   range: 2
-  damage: 15
   damageDelay: 0.3
   delayByDistance: 0
   animationName: Melee
-  effects: 00000000
+  animationIndex: 0
+  effects:
+  - type: 0
+    power: 10
+    duration: 0
+    AffectedStat: 0
+    EffectStatus: 0
   abilityIcon: {fileID: 21300000, guid: 77bf4360745f7c644832e54213b9b34b, type: 3}
   cost: 10
   cooldown: 3
-  AffectedStat: 0
-  AppliedEffect: 0
   requiresEnemy: 1
   atk_type: 0
