@@ -230,27 +230,41 @@ public class Player : MonoBehaviour {
 		yield break;
 	}
 
-	public void ProcStatus (AbilityEffect.Status a, float power, float duration) {
-		StartCoroutine (ApplyStatus(a, power, duration));
+	public void ProcStatus (AbilityEffect.Status a, float power, float duration, List<GameObject> targets) {
+		StartCoroutine (ApplyStatus(a, power, duration, targets));
 	}
 
-	IEnumerator ApplyStatus (AbilityEffect.Status a, float power, float duration) {
-		CharacterStatistics c = targetedEnemy.GetComponent<CharacterStatistics> ();
+	IEnumerator ApplyStatus (AbilityEffect.Status a, float power, float duration, List<GameObject> targets) {
+		
+		List<CharacterStatistics> targets_c = new List<CharacterStatistics> ();
+		foreach (GameObject target in targets) {
+			targets_c.Add (target.GetComponent<CharacterStatistics> ());
+		}
 
 		float t = 0;
 		switch (a) {
 		case AbilityEffect.Status.Ignite:
-			if (c.firePrefab != null) {
-				c.firePrefab.SetActive (true);
+			foreach (CharacterStatistics c in targets_c) {
+				if (c.firePrefab != null) {
+					c.firePrefab.SetActive (true);
+				}
 			}
+
 			while (t < duration) {
 				t += Time.deltaTime;
-				c.Damage (playerStats.health, power * Time.deltaTime);
+				foreach (CharacterStatistics c in targets_c) {
+					c.Damage (playerStats.health, power * Time.deltaTime);
+				}
+
 				yield return null;
 			}
-			if (c.firePrefab != null) {
-				c.firePrefab.SetActive (false);
+
+			foreach (CharacterStatistics c in targets_c) {
+				if (c.firePrefab != null) {
+					c.firePrefab.SetActive (false);
+				}
 			}
+
 			break;
 		}
 		yield break;

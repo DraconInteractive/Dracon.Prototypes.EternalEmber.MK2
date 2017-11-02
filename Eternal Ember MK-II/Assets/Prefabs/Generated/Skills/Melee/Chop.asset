@@ -25,8 +25,9 @@ MonoBehaviour:
     duration: 0
     AffectedStat: 0
     EffectStatus: 0
+    AOERange: 0
   abilityIcon: {fileID: 21300000, guid: 77bf4360745f7c644832e54213b9b34b, type: 3}
   cost: 10
   cooldown: 3
-  requiresEnemy: 1
+  targetType: 1
   atk_type: 0

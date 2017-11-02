@@ -40,11 +40,13 @@ public class ActionBarAbilityLink : MonoBehaviour {
 			return;
 		}
 		GameObject target = null;
-		if (assocAbility.requiresEnemy) {
+		//IMPORTANT: IF target is null, then this is probs needed
+		if (assocAbility.targetType == Ability.TargetType.Enemy || assocAbility.targetType == Ability.TargetType.EnemyRange) {
 			target = Player.player.targetedEnemy;
-		} else {
+		} else if (assocAbility.targetType == Ability.TargetType.Self){
 			target = Player.player.gameObject;
 		}
+
 		if (target != null) {
 			if (slot.cooldownComponent != null) {
 				if (!slot.cooldownComponent.IsOnCooldown) {

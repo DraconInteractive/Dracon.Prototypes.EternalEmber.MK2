@@ -58,7 +58,7 @@ public class Ability : ScriptableObject {
 						targetHealth.Damage(targetHealth.health, -effect.power);
 					}
 				} else if (targetType == TargetType.EnemyRange) {
-					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.duration);
+					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.AOERange);
 					List<Enemy> targetEnemies = new List<Enemy> ();
 					foreach (Collider c in colliders) {
 						Enemy e = c.gameObject.GetComponent<Enemy> ();
@@ -92,13 +92,29 @@ public class Ability : ScriptableObject {
 
 			}
 			else if (effect.type == AbilityEffect.EffectType.Status) {
-				Player.player.ProcStatus (effect.EffectStatus, effect.power, effect.duration);
+				List<GameObject> targets = new List<GameObject> ();
+				if (targetType == TargetType.Self) {
+					
+					targets.Add(Player.player.gameObject);
+					 
+				} else if (targetType == TargetType.EnemyRange) {
+					
+					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.AOERange);
+					List<Enemy> targetEnemies = new List<Enemy> ();
+					foreach (Collider c in colliders) {
+						Enemy e = c.gameObject.GetComponent<Enemy> ();
+						if (e != null) {
+							targets.Add (e.gameObject);
+						}
+					}
+
+				} else if (targetType == TargetType.Enemy) {
+					targets.Add (target);
+				}
+
+				Player.player.ProcStatus (effect.EffectStatus, effect.power, effect.duration, targets);
 			}
 		}
-
-
-
-
     }
 
 	public static UISpellInfo CreateSpellInfoFromAbility (Ability a) {
@@ -128,4 +144,6 @@ public class AbilityEffect {
 
 	public enum Status {None, Ignite, Blind, Root, Mark};
 	public Status EffectStatus;
+
+	public float AOERange;
 }
