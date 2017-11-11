@@ -7,10 +7,13 @@ using DuloGames.UI;
 using System.Linq;
 
 public class SettingsCanvas : MonoBehaviour {
+	public static SettingsCanvas settingsCanvas;
     //Graphics
     public UIWindow settingsWindow;
-    Resolution currentRes;
-    bool isFullScreen;
+	[HideInInspector]
+    public Resolution currentRes;
+	[HideInInspector]
+    public bool isFullScreen;
     public Toggle fullScreenToggle, bloomToggle, aaToggle;
     public UISelectField resolutionSelectField;
     List<string> resolutionOptions;
@@ -21,6 +24,10 @@ public class SettingsCanvas : MonoBehaviour {
     AudioControl aControl;
     public Slider volumeSlider, aMVSlider, aSVSlider, aSpSlider;
     public Toggle muteAllToggle;
+
+	void Awake () {
+		settingsCanvas = this;
+	}
 	// Use this for initialization
 	void Start () {
         aControl = AudioControl.aControl;
