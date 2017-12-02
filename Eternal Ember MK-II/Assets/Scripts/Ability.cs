@@ -27,16 +27,18 @@ public class Ability : ScriptableObject {
 	public enum TargetType {Self, Enemy, EnemyRange};
 	public TargetType targetType;
 
-    public virtual bool ProcAbility (GameObject target)
+	public virtual bool ProcAbility (GameObject caster, GameObject target, bool animateStandard)
     {
         //Debug.Log("Ability " + abilityName + " called");
         
-        CharacterStatistics stat = Player.player.GetComponent<CharacterStatistics>();
+		CharacterStatistics stat = caster.GetComponent<CharacterStatistics>();
         if (stat.mana.current > cost)
         {
             Debug.Log("Attack returned true");
-			Player.player.GetComponent<Animator> ().SetInteger ("attackIndex", animationIndex);
-			Player.player.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
+			if (animateStandard) {
+				caster.GetComponent<Animator> ().SetInteger ("attackIndex", animationIndex);
+				caster.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
+			}
             stat.Damage(stat.mana, -cost);
             return true;
         } 
@@ -47,7 +49,7 @@ public class Ability : ScriptableObject {
         }
     }
 
-    public virtual void ApplyEffect(GameObject target)
+    public virtual void ApplyEffect(GameObject caster, GameObject target)
     {
 		foreach (AbilityEffect effect in effects) {
 			if (effect.type == AbilityEffect.EffectType.Damage) {
@@ -80,12 +82,12 @@ public class Ability : ScriptableObject {
 				if (targetType == TargetType.Self) {
 					switch (effect.AffectedStat) {
 					case AbilityEffect.Stat.Accuracy:
-						Player.player.ProcApplyStatChange (Player.player.playerStats.meleeAccuracy, effect.power, effect.duration);
-						Player.player.ProcApplyStatChange (Player.player.playerStats.rangedAccuracy, effect.power, effect.duration);
+						Player.player.ProcApplyStatChange (caster.GetComponent<CharacterStatistics>().meleeAccuracy, effect.power, effect.duration);
+						Player.player.ProcApplyStatChange (caster.GetComponent<CharacterStatistics>().rangedAccuracy, effect.power, effect.duration);
 						break;
 					case AbilityEffect.Stat.Resistance:
-						Player.player.ProcApplyStatChange (Player.player.playerStats.meleeResist, effect.power, effect.duration);
-						Player.player.ProcApplyStatChange (Player.player.playerStats.magicResist, effect.power, effect.duration);
+						Player.player.ProcApplyStatChange (caster.GetComponent<CharacterStatistics>().meleeResist, effect.power, effect.duration);
+						Player.player.ProcApplyStatChange (caster.GetComponent<CharacterStatistics>().magicResist ,effect.power, effect.duration);
 						break;
 					}
 				}
@@ -95,7 +97,7 @@ public class Ability : ScriptableObject {
 				List<GameObject> targets = new List<GameObject> ();
 				if (targetType == TargetType.Self) {
 					
-					targets.Add(Player.player.gameObject);
+					targets.Add(caster);
 					 
 				} else if (targetType == TargetType.EnemyRange) {
 					
@@ -111,7 +113,7 @@ public class Ability : ScriptableObject {
 				} else if (targetType == TargetType.Enemy) {
 					targets.Add (target);
 				}
-
+		
 				Player.player.ProcStatus (effect.EffectStatus, effect.power, effect.duration, targets);
 			}
 		}

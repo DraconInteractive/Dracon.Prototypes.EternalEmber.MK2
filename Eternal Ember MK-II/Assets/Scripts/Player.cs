@@ -371,7 +371,7 @@ public class Player : MonoBehaviour {
         }        
 		//OnAttackArrive();
 
-        bool b = targetAbility.ProcAbility(detectedEnemies[0].gameObject);
+		bool b = targetAbility.ProcAbility(this.gameObject, detectedEnemies[0].gameObject, false);
         if (!b)
         {
             yield break;
@@ -383,7 +383,7 @@ public class Player : MonoBehaviour {
         }
         yield return new WaitForSeconds(delay);
 
-        targetAbility.ApplyEffect(detectedEnemies[0].gameObject);
+		targetAbility.ApplyEffect(this.gameObject, detectedEnemies[0].gameObject);
         
         attackCooldown.current = attackCooldown.maximum;
         yield break;
