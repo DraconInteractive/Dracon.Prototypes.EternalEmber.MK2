@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using cakeslice;
 
 [RequireComponent(typeof(CharacterStatistics))]
@@ -8,6 +10,7 @@ public class Enemy : MonoBehaviour {
     public static List<Enemy> allEnemies = new List<Enemy> ();
 
     CharacterStatistics enemyHealth;
+	NavMeshAgent agent;
     Animator anim;
 
     bool inCombat;
@@ -33,10 +36,13 @@ public class Enemy : MonoBehaviour {
 
 	bool targeted;
 	public GameObject targetedIndicator;
+
+	public List<EnemyAction> actions;
     private void Awake()
     {
         allEnemies.Add (this);
         enemyHealth = GetComponent<CharacterStatistics> ();
+		agent = GetComponent<NavMeshAgent> ();
         enemyHealth.onDeath = OnDeath;
         anim = GetComponent<Animator> ();
 		outline = GetComponent<Outline> ();
@@ -53,11 +59,36 @@ public class Enemy : MonoBehaviour {
 		if (hasOutline) {
 			outline.enabled = false;
 		}
+		StartCoroutine (PerformAction ());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	IEnumerator PerformAction () {
+		while (actions.Count > 0) {
+			EnemyAction thisAction = actions [0];
+			switch (thisAction.action) {
+			case EnemyAction.ActionType.GoTo:
+				agent.SetDestination (thisAction.GetGotoPoint ());
+				yield return null;
+				while (agent.velocity.magnitude >= 0.15f) {
+					yield return null;
+				}
+				break;
+			case EnemyAction.ActionType.Attack:
+				break;
+			case EnemyAction.ActionType.Wait:
+				break;
+			}
+
+			actions.Remove (thisAction);
+			yield return null;
+		}
+
+		yield break;
 	}
 
 	void OnMouseEnter () {
@@ -132,5 +163,30 @@ public class Enemy : MonoBehaviour {
 			renderers [i].material.color = Color.white;
 		}
 		yield break;
+	}
+}
+[Serializable]
+public class EnemyAction {
+	public enum ActionType {GoTo, Attack, Wait};
+	public ActionType action;
+
+	public float duration;
+	public Vector3 gotoPoint;
+	public GameObject gotoObject;
+
+	public float GetGotoDistance (Vector3 start) {
+		if (gotoObject != null) {
+			return Vector3.Distance (start, gotoObject.transform.position);
+		} else {
+			return Vector3.Distance (start, gotoPoint);
+		}
+	}
+
+	public Vector3 GetGotoPoint () {
+		if (gotoObject != null) {
+			return gotoObject.transform.position;
+		} else {
+			return gotoPoint;
+		}
 	}
 }
