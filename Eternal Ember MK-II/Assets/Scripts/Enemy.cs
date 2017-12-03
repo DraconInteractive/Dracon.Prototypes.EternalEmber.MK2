@@ -32,8 +32,20 @@ public class Enemy : MonoBehaviour {
         {
             inCombat = value;
             anim.SetBool ("inCombat", value);
-			StopCoroutine (actionRoutine);
-			actionRoutine = StartCoroutine (PerformAction(combatActions));
+			if (value == true) {
+				if (combatActions.Count > 0) {
+					StopCoroutine (actionRoutine);
+					actionRoutine = StartCoroutine (PerformAction(combatActions));
+				}
+
+			} else {
+				if (baseActions.Count > 0) {
+					StopCoroutine (actionRoutine);
+					actionRoutine = StartCoroutine (PerformAction (baseActions));
+				}
+
+			}
+
         }
     }
 
@@ -41,6 +53,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject targetedIndicator;
 
 	public List<EnemyAction> baseActions, combatActions;
+	public EnemyAction currentAction;
 	Coroutine actionRoutine;
 	public Ability attackAbility;
 
@@ -71,9 +84,9 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (actionRoutine == null) {
-			if (inCombat) {
+			if (inCombat && combatActions.Count > 0) {
 				actionRoutine = StartCoroutine (PerformAction (combatActions));
-			} else {
+			} else if (!inCombat && baseActions.Count > 0) {
 				actionRoutine = StartCoroutine (PerformAction (baseActions));
 			}
 		} 
@@ -84,17 +97,20 @@ public class Enemy : MonoBehaviour {
 		while (actions.Count > 0) {
 			
 			EnemyAction thisAction = actions [0];
+			currentAction = thisAction;
 			int repeats = thisAction.repeats;
 			while (repeats >= 0) {
 				thisAction.PlayAnim (anim);
 				switch (thisAction.action) {
 				case EnemyAction.ActionType.GoTo:
-					
 					agent.SetDestination (thisAction.GetGotoPoint ());
+					agent.isStopped = false;
 					yield return null;
-					while (agent.velocity.magnitude >= 0.15f) {
+					while (Vector3.Distance (transform.position, agent.destination) > thisAction.gotoDist) {
 						yield return null;
 					}
+					agent.isStopped = true;
+					yield return null;
 					break;
 				case EnemyAction.ActionType.Attack:
 					bool b = attackAbility.ProcAbility (this.gameObject, Player.player.gameObject, false);
@@ -112,7 +128,13 @@ public class Enemy : MonoBehaviour {
 					yield return null;
 					break;
 				case EnemyAction.ActionType.Wait:
-					yield return new WaitForSeconds (thisAction.duration);
+					//yield return new WaitForSeconds (thisAction.duration);
+					float timer = thisAction.duration;
+					while (timer > 0) {
+						timer -= Time.deltaTime;
+						yield return null;
+					}
+
 					break;
 				case EnemyAction.ActionType.Interact:
 					yield return new WaitForSeconds (0.5f);
@@ -123,11 +145,11 @@ public class Enemy : MonoBehaviour {
 				repeats--;
 			}
 
-
+			currentAction = null;
 			actions.Remove (thisAction);
 			yield return null;
 		}
-
+		actionRoutine = null;
 		yield break;
 	}
 
@@ -213,6 +235,7 @@ public class EnemyAction {
 	public float duration;
 	public Vector3 gotoPoint;
 	public GameObject gotoObject;
+	public float gotoDist;
 
 	public int repeats;
 
