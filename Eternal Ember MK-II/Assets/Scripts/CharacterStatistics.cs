@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CharacterStatistics : MonoBehaviour {
+[Serializable]
+public class CharacterStatistics {
     public static CharacterStatistics playerStatistics;
     //Level
     public CharacterStatistic level;
@@ -45,34 +45,26 @@ public class CharacterStatistics : MonoBehaviour {
     public delegate void Die();
     public Die onDeath;
 
-	bool isEnemy;
+	public enum StatHolder {Player, Enemy, Ally};
+	public StatHolder statHolder;
 
-    private void Awake()
-    {
-        if (GetComponent<Player>())
-        {
-            playerStatistics = this;
-        }
-		if (GetComponent<Enemy>()) {
-			isEnemy = true;
-		}
-    }
-    private void Start()
-    {
-        CalculateResultants();
-        StatisticInitiate ();
-
-		//DEBUG:
-		//currentMoney = "202020";
-    }
-
-    private void Update()
-    {
-        if (mana.current < mana.maximum)
-        {
-            Damage(mana, Time.deltaTime);
-        } 
-    }
+//TODO: Implement Natively
+//    private void Start()
+//    {
+//        CalculateResultants();
+//        StatisticInitiate ();
+//
+//		//DEBUG:
+//		//currentMoney = "202020";
+//    }
+//
+//    private void Update()
+//    {
+//        if (mana.current < mana.maximum)
+//        {
+//            Damage(mana, Time.deltaTime);
+//        } 
+//    }
 
     public void StatisticInitiate ()
     {
@@ -81,7 +73,7 @@ public class CharacterStatistics : MonoBehaviour {
         mana.current = mana.maximum;
     }
     
-    public void Damage (CharacterStatistic stat, float amount)
+    public void Damage (GameObject target, CharacterStatistic stat, float amount)
     {
         
         stat.current += amount;
@@ -96,9 +88,18 @@ public class CharacterStatistics : MonoBehaviour {
 //			ActionBarCanvas.actionBar.UpdateActionBar ();
 //        }
 
-		if (isEnemy) {
-			GetComponent<Enemy> ().OnHit ();
+		switch (statHolder)
+		{
+		case StatHolder.Player:
+			target.GetComponent<Player> ().OnHit();
+			break;
+		case StatHolder.Enemy:
+			target.GetComponent<Enemy> ().OnHit ();
+			break;
+		case StatHolder.Ally:
+			break;
 		}
+
     }
 
 

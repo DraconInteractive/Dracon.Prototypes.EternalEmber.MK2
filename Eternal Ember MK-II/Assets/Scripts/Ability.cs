@@ -39,7 +39,8 @@ public class Ability : ScriptableObject {
 				caster.GetComponent<Animator> ().SetInteger ("attackIndex", animationIndex);
 				caster.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
 			}
-            stat.Damage(stat.mana, -cost);
+            
+			stat.Damage(target, stat.mana, -cost);
             return true;
         } 
         else
@@ -57,7 +58,7 @@ public class Ability : ScriptableObject {
 					CharacterStatistics targetHealth = target.GetComponent<CharacterStatistics>();
 					if (targetHealth != null)
 					{
-						targetHealth.Damage(targetHealth.health, -effect.power);
+						targetHealth.Damage(target, targetHealth.health, -effect.power);
 					}
 				} else if (targetType == TargetType.EnemyRange) {
 					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.AOERange);
@@ -72,7 +73,7 @@ public class Ability : ScriptableObject {
 						CharacterStatistics targetHealth = enemy.GetComponent<CharacterStatistics>();
 						if (targetHealth != null)
 						{
-							targetHealth.Damage(targetHealth.health, -effect.power);
+							targetHealth.Damage(target, targetHealth.health, -effect.power);
 						}
 					}
 				}

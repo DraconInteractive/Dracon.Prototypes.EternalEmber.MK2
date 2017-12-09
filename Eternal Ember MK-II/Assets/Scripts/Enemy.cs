@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using cakeslice;
 
-[RequireComponent(typeof(CharacterStatistics))]
 public class Enemy : MonoBehaviour {
     public static List<Enemy> allEnemies = new List<Enemy> ();
 
@@ -57,6 +56,7 @@ public class Enemy : MonoBehaviour {
 	Coroutine actionRoutine;
 	public Ability attackAbility;
 
+	public EnemyProfile profile;
     private void Awake()
     {
         allEnemies.Add (this);

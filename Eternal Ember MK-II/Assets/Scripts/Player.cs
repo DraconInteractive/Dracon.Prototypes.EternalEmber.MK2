@@ -121,7 +121,7 @@ public class Player : MonoBehaviour {
     public void DMG(float amount)
     {
 		print ("Damage Function Called");
-        playerStats.Damage(playerStats.health, amount);
+		playerStats.Damage(this.gameObject, playerStats.health, amount);
     }
     // Update is called once per frame
     void Update () {
@@ -253,7 +253,7 @@ public class Player : MonoBehaviour {
 			while (t < duration) {
 				t += Time.deltaTime;
 				foreach (CharacterStatistics c in targets_c) {
-					c.Damage (playerStats.health, power * Time.deltaTime);
+					c.Damage (targets[targets_c.IndexOf(c)],c.health, power * Time.deltaTime);
 				}
 
 				yield return null;
@@ -393,6 +393,10 @@ public class Player : MonoBehaviour {
     {
 
     }
+
+	public void OnHit () {
+		
+	}
 		
 #endregion
 
