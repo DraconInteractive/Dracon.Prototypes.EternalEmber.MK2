@@ -16,7 +16,7 @@ public class CharacterCanvas : MonoBehaviour {
     CharacterStatistics stats;
 	// Use this for initialization
 	void Start () {
-        stats = Player.player.GetComponent<CharacterStatistics>();
+        stats = Player.player.playerStats;
 	}
 	
 	// Update is called once per frame

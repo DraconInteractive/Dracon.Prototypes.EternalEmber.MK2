@@ -9,9 +9,9 @@ using DuloGames.UI;
 public class Player : MonoBehaviour {
 
     public static Player player;
-    Animator anim;
-    AudioSource audioSource;
 	[HideInInspector]
+    public Animator anim;
+    AudioSource audioSource;
     public CharacterStatistics playerStats;
 	Rigidbody rb;
 
@@ -96,7 +96,6 @@ public class Player : MonoBehaviour {
         player = this;
         anim = GetComponent<Animator> ();
         audioSource = GetComponent<AudioSource> ();
-        playerStats = GetComponent<CharacterStatistics> ();
 		rb = GetComponent<Rigidbody> ();
         playerStats.onDeath += OnDeath;
 
@@ -327,10 +326,13 @@ public class Player : MonoBehaviour {
                     {
                         detectedEnemies.Add (enemy);
                     }
-                    if (!enemy.InCombat)
-                    {
-                        enemy.InCombat = true;
-                    }
+					if (!enemy.seenByPlayer) {
+						enemy.seenByPlayer = true;
+					}
+//                    if (!enemy.InCombat)
+//                    {
+//                        enemy.InCombat = true;
+//                    }
                 }
                 else
                 {
@@ -371,7 +373,7 @@ public class Player : MonoBehaviour {
         }        
 		//OnAttackArrive();
 
-		bool b = targetAbility.ProcAbility(this.gameObject, detectedEnemies[0].gameObject, false);
+		bool b = targetAbility.ProcAbility(playerStats, anim, detectedEnemies[0].gameObject, false);
         if (!b)
         {
             yield break;

@@ -23,7 +23,7 @@ public class ActionBarCanvas : MonoBehaviour {
 
 	public void UpdateActionBar()
 	{
-		CharacterStatistics stats = Player.player.GetComponent<CharacterStatistics>();
+		CharacterStatistics stats = Player.player.playerStats;
 		hpBar.fillAmount = stats.health.current / stats.health.maximum;
 		mpBar.fillAmount = stats.mana.current / stats.mana.maximum;
 //		float hpt = (int)(hpBar.fillAmount * 100);

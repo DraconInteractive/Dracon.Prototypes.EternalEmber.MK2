@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     public static List<Enemy> allEnemies = new List<Enemy> ();
 
     CharacterStatistics enemyHealth;
+	public float hp_current, mp_current;
 	NavMeshAgent agent;
     Animator anim;
 
@@ -29,25 +30,33 @@ public class Enemy : MonoBehaviour {
 
         set
         {
-            inCombat = value;
-            anim.SetBool ("inCombat", value);
-			if (value == true) {
-				if (combatActions.Count > 0) {
-					StopCoroutine (actionRoutine);
-					actionRoutine = StartCoroutine (PerformAction(combatActions));
-				}
+			if (canAttack) {
+				inCombat = value;
+				anim.SetBool ("inCombat", value);
+				if (value == true) {
+					if (combatActions.Count > 0) {
+						if (actionRoutine != null) {
+							StopCoroutine (actionRoutine);
+						}
+						actionRoutine = StartCoroutine (PerformAction(combatActions));
+					}
 
+				} else {
+					if (baseActions.Count > 0) {
+						if (actionRoutine != null) {
+							StopCoroutine (actionRoutine);
+						}
+						actionRoutine = StartCoroutine (PerformAction (baseActions));
+					}
+
+				}
 			} else {
-				if (baseActions.Count > 0) {
-					StopCoroutine (actionRoutine);
-					actionRoutine = StartCoroutine (PerformAction (baseActions));
-				}
-
+				print (this.name + " Cant Attack");
 			}
-
         }
     }
 
+	public bool seenByPlayer = false;
 	bool targeted;
 	public GameObject targetedIndicator;
 
@@ -57,10 +66,12 @@ public class Enemy : MonoBehaviour {
 	public Ability attackAbility;
 
 	public EnemyProfile profile;
+
+	public bool canAttack = true;
     private void Awake()
     {
         allEnemies.Add (this);
-        enemyHealth = GetComponent<CharacterStatistics> ();
+		enemyHealth = profile.stats.stats;
 		agent = GetComponent<NavMeshAgent> ();
         enemyHealth.onDeath = OnDeath;
         anim = GetComponent<Animator> ();
@@ -75,14 +86,20 @@ public class Enemy : MonoBehaviour {
     // Use this for initialization
     void Start () {
         InCombat = false;
+		seenByPlayer = false;
 		if (hasOutline) {
 			outline.enabled = false;
 		}
+		hp_current = profile.stats.stats.health.maximum;
+		mp_current = profile.stats.stats.mana.maximum;
 		actionRoutine = StartCoroutine (PerformAction (baseActions));
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (seenByPlayer && canAttack && !inCombat) {
+			InCombat = true;
+		}
 		if (actionRoutine == null) {
 			if (inCombat && combatActions.Count > 0) {
 				actionRoutine = StartCoroutine (PerformAction (combatActions));
@@ -90,6 +107,10 @@ public class Enemy : MonoBehaviour {
 				actionRoutine = StartCoroutine (PerformAction (baseActions));
 			}
 		} 
+		if (mp_current < profile.stats.stats.mana.maximum) {
+			mp_current += Time.deltaTime;
+			mp_current = Mathf.Clamp (mp_current, 0, profile.stats.stats.mana.maximum);
+		}
 	}
 
 	IEnumerator PerformAction (List<EnemyAction> inputActions) {
@@ -113,7 +134,7 @@ public class Enemy : MonoBehaviour {
 					yield return null;
 					break;
 				case EnemyAction.ActionType.Attack:
-					bool b = attackAbility.ProcAbility (this.gameObject, Player.player.gameObject, false);
+					bool b = attackAbility.ProcAbility (mp_current, anim, Player.player.gameObject, false);
 					if (!b) {
 						yield break;
 					}
@@ -153,6 +174,7 @@ public class Enemy : MonoBehaviour {
 		yield break;
 	}
 
+	#region mouseEvents
 	void OnMouseEnter () {
 		if (hasOutline) {
 			outline.enabled = true;
@@ -173,12 +195,21 @@ public class Enemy : MonoBehaviour {
 		Player.player.targetedEnemy = this.gameObject;
 		ToggleTargeted (true);
 	}
+	#endregion
 
 	public void ToggleTargeted (bool state) {
 		targeted = state;
 		targetedIndicator.SetActive (state);
 	}
 
+	#region damageFunctions
+	public void Damage (float amount) {
+		hp_current -= amount;
+		OnHit ();
+		if (hp_current <= 0) {
+			OnDeath ();
+		}
+	}
     void OnDeath ()
     {
         print("Enemy Death");
@@ -226,6 +257,7 @@ public class Enemy : MonoBehaviour {
 		}
 		yield break;
 	}
+	#endregion
 }
 [Serializable]
 public class EnemyAction {

@@ -49,14 +49,14 @@ public class CharacterStatistics {
 	public StatHolder statHolder;
 
 //TODO: Implement Natively
-//    private void Start()
-//    {
-//        CalculateResultants();
-//        StatisticInitiate ();
-//
-//		//DEBUG:
-//		//currentMoney = "202020";
-//    }
+    public void SetupStatistics()
+    {
+        CalculateResultants();
+        StatisticInitiate ();
+
+		//DEBUG:
+		//currentMoney = "202020";
+    }
 //
 //    private void Update()
 //    {
@@ -77,9 +77,24 @@ public class CharacterStatistics {
     {
         
         stat.current += amount;
-        if (stat == health && stat.current <= 0)
+        if (stat == health)
         {
-            onDeath ();
+			if (stat.current <= 0) {
+				onDeath ();
+			} else {
+				switch (statHolder)
+				{
+				case StatHolder.Player:
+					target.GetComponent<Player> ().OnHit();
+					break;
+				case StatHolder.Enemy:
+					target.GetComponent<Enemy> ().OnHit ();
+					break;
+				case StatHolder.Ally:
+					break;
+				}
+			}
+           
         }
         stat.current = Mathf.Clamp (stat.current, 0, stat.maximum);
 
@@ -88,17 +103,7 @@ public class CharacterStatistics {
 //			ActionBarCanvas.actionBar.UpdateActionBar ();
 //        }
 
-		switch (statHolder)
-		{
-		case StatHolder.Player:
-			target.GetComponent<Player> ().OnHit();
-			break;
-		case StatHolder.Enemy:
-			target.GetComponent<Enemy> ().OnHit ();
-			break;
-		case StatHolder.Ally:
-			break;
-		}
+
 
     }
 

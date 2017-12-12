@@ -52,7 +52,7 @@ public class ActionBarAbilityLink : MonoBehaviour {
 				if (!slot.cooldownComponent.IsOnCooldown) {
 					float d = Player.player.DistanceToTargetedEnemy ();
 					if (d < assocAbility.range) {
-						bool b = assocAbility.ProcAbility (Player.player.gameObject, target, true);
+						bool b = assocAbility.ProcAbility (Player.player.playerStats, Player.player.anim, target, true);
 						if (b) {
 							slot.cooldownComponent.StartCooldown (slot.GetSpellInfo ().ID, slot.GetSpellInfo ().Cooldown);
 							StartCoroutine (ApplyAbilityEffect (assocAbility, target));

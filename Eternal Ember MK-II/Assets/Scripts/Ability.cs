@@ -27,55 +27,70 @@ public class Ability : ScriptableObject {
 	public enum TargetType {Self, Enemy, EnemyRange};
 	public TargetType targetType;
 
-	public virtual bool ProcAbility (GameObject caster, GameObject target, bool animateStandard)
+	public virtual bool ProcAbility (CharacterStatistics casterStats, Animator casterAnim, GameObject target, bool animateStandard)
     {
         //Debug.Log("Ability " + abilityName + " called");
         
-		CharacterStatistics stat = caster.GetComponent<CharacterStatistics>();
-        if (stat.mana.current > cost)
-        {
-            Debug.Log("Attack returned true");
+		CharacterStatistics stat = casterStats;
+		if (stat.mana.current > cost)
+		{
+			Debug.Log("Attack returned true");
 			if (animateStandard) {
-				caster.GetComponent<Animator> ().SetInteger ("attackIndex", animationIndex);
-				caster.GetComponent<Animator>().SetTrigger("Attack_" + animationName);
+				casterAnim.SetInteger ("attackIndex", animationIndex);
+				casterAnim.SetTrigger("Attack_" + animationName);
 			}
-            
-			stat.Damage(target, stat.mana, -cost);
-            return true;
-        } 
-        else
-        {
-            Debug.Log("Attack returned false");
-            return false;
-        }
+
+			stat.Damage(casterAnim.gameObject, stat.mana, -cost);
+			return true;
+		} 
+		else
+		{
+			Debug.Log("Attack returned false");
+			return false;
+		}
     }
+
+	public virtual bool ProcAbility (float casterMana, Animator casterAnim, GameObject target, bool animateStandard) {
+		if (casterMana > cost) {
+			Debug.Log ("Attack Returned True");
+			if (animateStandard) {
+				casterAnim.SetInteger ("attackIndex", animationIndex);
+				casterAnim.SetTrigger("Attack_" + animationName);
+			}
+			casterMana -= cost;
+			return true;
+		}
+		else
+		{
+			Debug.Log("Attack returned false");
+			return false;
+		}
+	}
 
     public virtual void ApplyEffect(GameObject caster, GameObject target)
     {
 		foreach (AbilityEffect effect in effects) {
 			if (effect.type == AbilityEffect.EffectType.Damage) {
 				if (targetType == TargetType.Enemy) {
-					CharacterStatistics targetHealth = target.GetComponent<CharacterStatistics>();
-					if (targetHealth != null)
-					{
-						targetHealth.Damage(target, targetHealth.health, -effect.power);
-					}
+					target.GetComponent<Enemy> ().Damage (effect.power);
 				} else if (targetType == TargetType.EnemyRange) {
 					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.AOERange);
 					List<Enemy> targetEnemies = new List<Enemy> ();
 					foreach (Collider c in colliders) {
 						Enemy e = c.gameObject.GetComponent<Enemy> ();
 						if (e != null) {
-							targetEnemies.Add (e);
+//							targetEnemies.Add (e);
+							//TODO: Make damage scale with distance from original
+							e.Damage (effect.power);
 						}
 					}
-					foreach (Enemy enemy in targetEnemies) {
-						CharacterStatistics targetHealth = enemy.GetComponent<CharacterStatistics>();
-						if (targetHealth != null)
-						{
-							targetHealth.Damage(target, targetHealth.health, -effect.power);
-						}
-					}
+//					foreach (Enemy enemy in targetEnemies) {
+//						CharacterStatistics targetHealth = enemy.GetComponent<CharacterStatistics>();
+//						if (targetHealth != null)
+//						{
+//							targetHealth.Damage(target, targetHealth.health, -effect.power);
+//						}
+//					}
 				}
 
 			}
