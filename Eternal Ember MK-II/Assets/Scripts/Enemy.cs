@@ -130,6 +130,10 @@ public class Enemy : MonoBehaviour {
 					while (Vector3.Distance (transform.position, agent.destination) > thisAction.gotoDist) {
 						yield return null;
 					}
+					while (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(thisAction.GetGotoPoint() - transform.position, Vector3.up)) > 5) {
+						transform.rotation *= Quaternion.FromToRotation (transform.forward, thisAction.GetGotoPoint () - transform.position);
+						yield return null;
+					}
 					agent.isStopped = true;
 					yield return null;
 					break;
@@ -256,6 +260,11 @@ public class Enemy : MonoBehaviour {
 			renderers [i].material.color = Color.white;
 		}
 		yield break;
+	}
+
+	//Animation event
+	public void Hit () {
+		
 	}
 	#endregion
 }

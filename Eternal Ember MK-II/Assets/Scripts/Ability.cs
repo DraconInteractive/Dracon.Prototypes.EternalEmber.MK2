@@ -72,27 +72,34 @@ public class Ability : ScriptableObject {
 		foreach (AbilityEffect effect in effects) {
 			if (effect.type == AbilityEffect.EffectType.Damage) {
 				if (targetType == TargetType.Enemy) {
-					target.GetComponent<Enemy> ().Damage (effect.power);
+					Enemy e = target.GetComponent<Enemy> ();
+					Player p = target.GetComponent<Player> ();
+					if (e != null) {
+						e.Damage (effect.power);
+					} else if (p != null) {
+						p.Damage (effect.power);
+					}
+
 				} else if (targetType == TargetType.EnemyRange) {
 					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.AOERange);
 					List<Enemy> targetEnemies = new List<Enemy> ();
 					foreach (Collider c in colliders) {
-						Enemy e = c.gameObject.GetComponent<Enemy> ();
-						if (e != null) {
-//							targetEnemies.Add (e);
-							//TODO: Make damage scale with distance from original
-							e.Damage (effect.power);
+						if (caster.GetComponent<Player>()) {
+							Enemy e = c.gameObject.GetComponent<Enemy> ();
+							if (e != null) {
+								//							targetEnemies.Add (e);
+								//TODO: Make damage scale with distance from original
+								e.Damage (effect.power);
+							}
+						} else {
+							Player p = c.gameObject.GetComponent<Player> ();
+							p.Damage (effect.power);
 						}
-					}
-//					foreach (Enemy enemy in targetEnemies) {
-//						CharacterStatistics targetHealth = enemy.GetComponent<CharacterStatistics>();
-//						if (targetHealth != null)
-//						{
-//							targetHealth.Damage(target, targetHealth.health, -effect.power);
-//						}
-//					}
-				}
 
+
+
+					}
+				}
 			}
 			else if (effect.type == AbilityEffect.EffectType.StatChange) {
 				if (targetType == TargetType.Self) {
@@ -116,21 +123,27 @@ public class Ability : ScriptableObject {
 					targets.Add(caster);
 					 
 				} else if (targetType == TargetType.EnemyRange) {
-					
 					Collider[] colliders = Physics.OverlapSphere (target.transform.position, effect.AOERange);
 					List<Enemy> targetEnemies = new List<Enemy> ();
-					foreach (Collider c in colliders) {
-						Enemy e = c.gameObject.GetComponent<Enemy> ();
-						if (e != null) {
-							targets.Add (e.gameObject);
+					if (caster.GetComponent<Player>()) {
+						foreach (Collider c in colliders) {
+							Enemy e = c.gameObject.GetComponent<Enemy> ();
+							if (e != null) {
+								targets.Add (e.gameObject);
+							}
 						}
+					} else {
+						targets.Add (target);
 					}
+
 
 				} else if (targetType == TargetType.Enemy) {
 					targets.Add (target);
 				}
 		
 				Player.player.ProcStatus (effect.EffectStatus, effect.power, effect.duration, targets);
+
+
 			}
 		}
     }

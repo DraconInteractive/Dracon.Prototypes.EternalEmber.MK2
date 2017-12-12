@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
     public Animator anim;
     AudioSource audioSource;
     public CharacterStatistics playerStats;
+	public float hp_current, mp_current;
 	Rigidbody rb;
 
     public Transform head;
@@ -105,7 +106,9 @@ public class Player : MonoBehaviour {
         InCombat = false;
         canMove = true;
         
-        
+		hp_current = playerStats.health.maximum;
+		mp_current = playerStats.mana.maximum;
+
         StartCoroutine (Detection ());
         Minibuffer.Register (this);
 
@@ -218,56 +221,7 @@ public class Player : MonoBehaviour {
         yield break;
     }
 
-	public void ProcApplyStatChange (CharacterStatistic c, float power, float duration) {
-		StartCoroutine (ApplyStatChange (c, power, duration));
-	}
 
-	IEnumerator ApplyStatChange (CharacterStatistic c, float power, float duration) {
-		c.points += power;
-		yield return new WaitForSeconds (duration);
-		c.points -= power;
-		yield break;
-	}
-
-	public void ProcStatus (AbilityEffect.Status a, float power, float duration, List<GameObject> targets) {
-		StartCoroutine (ApplyStatus(a, power, duration, targets));
-	}
-
-	IEnumerator ApplyStatus (AbilityEffect.Status a, float power, float duration, List<GameObject> targets) {
-		
-		List<CharacterStatistics> targets_c = new List<CharacterStatistics> ();
-		foreach (GameObject target in targets) {
-			targets_c.Add (target.GetComponent<CharacterStatistics> ());
-		}
-
-		float t = 0;
-		switch (a) {
-		case AbilityEffect.Status.Ignite:
-			foreach (CharacterStatistics c in targets_c) {
-				if (c.firePrefab != null) {
-					c.firePrefab.SetActive (true);
-				}
-			}
-
-			while (t < duration) {
-				t += Time.deltaTime;
-				foreach (CharacterStatistics c in targets_c) {
-					c.Damage (targets[targets_c.IndexOf(c)],c.health, power * Time.deltaTime);
-				}
-
-				yield return null;
-			}
-
-			foreach (CharacterStatistics c in targets_c) {
-				if (c.firePrefab != null) {
-					c.firePrefab.SetActive (false);
-				}
-			}
-
-			break;
-		}
-		yield break;
-	}
 
 #region animation recievers
     public void FootL ()
@@ -391,21 +345,83 @@ public class Player : MonoBehaviour {
         yield break;
     }
 
+	public void ProcApplyStatChange (CharacterStatistic c, float power, float duration) {
+		StartCoroutine (ApplyStatChange (c, power, duration));
+	}
+
+	IEnumerator ApplyStatChange (CharacterStatistic c, float power, float duration) {
+		c.points += power;
+		yield return new WaitForSeconds (duration);
+		c.points -= power;
+		yield break;
+	}
+
+	public void ProcStatus (AbilityEffect.Status a, float power, float duration, List<GameObject> targets) {
+		StartCoroutine (ApplyStatus(a, power, duration, targets));
+	}
+
+	IEnumerator ApplyStatus (AbilityEffect.Status a, float power, float duration, List<GameObject> targets) {
+
+		List<CharacterStatistics> targets_c = new List<CharacterStatistics> ();
+		foreach (GameObject target in targets) {
+			targets_c.Add (target.GetComponent<CharacterStatistics> ());
+		}
+
+		float t = 0;
+		switch (a) {
+		case AbilityEffect.Status.Ignite:
+			foreach (CharacterStatistics c in targets_c) {
+				if (c.firePrefab != null) {
+					c.firePrefab.SetActive (true);
+				}
+			}
+
+			while (t < duration) {
+				t += Time.deltaTime;
+				foreach (CharacterStatistics c in targets_c) {
+					c.Damage (targets[targets_c.IndexOf(c)],c.health, power * Time.deltaTime);
+				}
+
+				yield return null;
+			}
+
+			foreach (CharacterStatistics c in targets_c) {
+				if (c.firePrefab != null) {
+					c.firePrefab.SetActive (false);
+				}
+			}
+
+			break;
+		}
+		yield break;
+	}
+
     void OnAttackArrive ()
     {
 
     }
 
+	public void Damage (float amount) {
+		hp_current -= amount;
+		if (hp_current > 0) {
+			OnHit ();
+		} else {
+			OnDeath ();
+		}
+	}
+
 	public void OnHit () {
 		
+	}
+
+	void OnDeath ()
+	{
+
 	}
 		
 #endregion
 
-    void OnDeath ()
-    {
 
-    }
 		
     public void EquipItemOnCharacter (GameObject template, UIEquipmentType equipType)
     {
