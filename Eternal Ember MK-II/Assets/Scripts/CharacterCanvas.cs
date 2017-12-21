@@ -13,7 +13,7 @@ public class CharacterCanvas : MonoBehaviour {
     public Text armourText, durabilityText, moveSpeedMultText;
     public Text levelText, pointsText, expText;
     public UIProgressBar weaponCraftBar, armourCraftBar, repairBar, runeCraftBar;
-    CharacterStatistics stats;
+	StatisticsProfile stats;
 	// Use this for initialization
 	void Start () {
         stats = Player.player.playerStats;
@@ -95,16 +95,16 @@ public class CharacterCanvas : MonoBehaviour {
 
     public void OnOpen ()
     {
-        stats.CalculateResultants();
-        healthValueText.text = stats.health.maximum.ToString();
-        manaValueText.text = stats.mana.maximum.ToString();
-        staminaText.text = stats.stamina.maximum.ToString();
+		stats.stats.CalculateResultants();
+		healthValueText.text = stats.stats.health.maximum.ToString();
+		manaValueText.text = stats.stats.mana.maximum.ToString();
+		staminaText.text = stats.stats.stamina.maximum.ToString();
 
-        strengthText.text = stats.strength.current.ToString();
-        dexterityText.text = stats.dexterity.current.ToString();
-        consitutionText.text = stats.constitution.current.ToString();
-        intelligenceText.text = stats.intelligence.current.ToString();
-        wisdomText.text = stats.wisdom.current.ToString();
+		strengthText.text = stats.stats.strength.current.ToString();
+		dexterityText.text = stats.stats.dexterity.current.ToString();
+		consitutionText.text = stats.stats.constitution.current.ToString();
+		intelligenceText.text = stats.stats.intelligence.current.ToString();
+		wisdomText.text = stats.stats.wisdom.current.ToString();
 
         Inventory inventory = Player.player.playerInventory;
         Item weapon = null;
@@ -132,20 +132,20 @@ public class CharacterCanvas : MonoBehaviour {
             }
         }
 
-        damage += stats.baseMeleeDamage.current;
+		damage += stats.stats.baseMeleeDamage.current;
         
         damageText.text = damage.ToString();
         attackSpeedText.text = atkSpeed.ToString();
         float dps = damage * atkSpeed;
         dpsText.text = dps.ToString();
-        dodgeText.text = stats.dodgeChance.current.ToString();
+		dodgeText.text = stats.stats.dodgeChance.current.ToString();
 
-        moveSpeedMultText.text = stats.moveSpeedMultiplier.current.ToString();
-        levelText.text = stats.level.current.ToString();
-        expText.text = stats.level.current.ToString();
-        pointsText.text = stats.talentPoints.current.ToString();
+		moveSpeedMultText.text = stats.stats.moveSpeedMultiplier.current.ToString();
+		levelText.text = stats.stats.level.current.ToString();
+		expText.text = stats.stats.level.current.ToString();
+		pointsText.text = stats.stats.talentPoints.current.ToString();
 
-        repairBar.fillAmount = stats.repairSkill.current / 100;
+		repairBar.fillAmount = stats.stats.repairSkill.current / 100;
         
     }
 }

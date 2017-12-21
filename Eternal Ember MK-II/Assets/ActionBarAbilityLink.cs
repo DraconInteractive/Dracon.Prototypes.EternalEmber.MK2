@@ -10,6 +10,16 @@ public class ActionBarAbilityLink : MonoBehaviour {
 
 	public KeyCode hotKey;
 
+	void Start () {
+//		if (PlayerPrefs.GetString(name + "AbilityName") != "") {
+//			
+//		}
+	}
+//	void SetAtStart (string s) {
+//		string name = s;
+//		assocAbility = AbilityManager.Instance.GetAbilityByName (name);
+////		PlayerPrefs.SetString (name + " AbilityName", name);
+//	}
 	void Update () {
 		if (Input.GetKeyDown(hotKey)) {
 			GetComponent<UISpellSlot> ().OnPointerClick (new PointerEventData(EventSystem.current));
@@ -18,7 +28,7 @@ public class ActionBarAbilityLink : MonoBehaviour {
 	public void OnAssigned (UISpellSlot slot) {
 		UISpellInfo info = slot.GetSpellInfo();
 		assocAbility = AbilityManager.Instance.GetAbilityByName (info.Name);
-
+		PlayerPrefs.SetString (name + " AbilityName", info.Name);
 	}
 
 	public void OnUnAssign (UISpellSlot slot) {
@@ -52,7 +62,7 @@ public class ActionBarAbilityLink : MonoBehaviour {
 				if (!slot.cooldownComponent.IsOnCooldown) {
 					float d = Player.player.DistanceToTargetedEnemy ();
 					if (d < assocAbility.range) {
-						bool b = assocAbility.ProcAbility (Player.player.playerStats, Player.player.anim, target, true);
+						bool b = assocAbility.ProcAbility (Player.player.playerStats.stats, Player.player.anim, target, true);
 						if (b) {
 							slot.cooldownComponent.StartCooldown (slot.GetSpellInfo ().ID, slot.GetSpellInfo ().Cooldown);
 							StartCoroutine (ApplyAbilityEffect (assocAbility, target));

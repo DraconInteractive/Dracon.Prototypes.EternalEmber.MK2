@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DuloGames.UI;
 
 public class ActionBarCanvas : MonoBehaviour {
+	StatisticsProfile playerStats;
 	public static ActionBarCanvas actionBar;
 
 	public UIProgressBar hpBar, mpBar, xpBar;
@@ -13,6 +14,7 @@ public class ActionBarCanvas : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		playerStats = Player.player.playerStats;
 		StartCoroutine (UpdateRepeater ());
 	}
 	
@@ -23,7 +25,7 @@ public class ActionBarCanvas : MonoBehaviour {
 
 	public void UpdateActionBar()
 	{
-		CharacterStatistics stats = Player.player.playerStats;
+		CharacterStatistics stats = playerStats.stats;
 		hpBar.fillAmount = stats.health.current / stats.health.maximum;
 		mpBar.fillAmount = stats.mana.current / stats.mana.maximum;
 //		float hpt = (int)(hpBar.fillAmount * 100);

@@ -86,8 +86,9 @@ public class InventoryCanvas : MonoBehaviour {
                     case CharacterAttribute.AttributeType.Block:
                         info.Block = (int)att.amount;
                         break;
-                    default:
-                        info.ItemAttributes.Add(att.ca_type.ToString(), att.amount);
+				default:
+                        //info.ItemAttributes.Add(att.ca_type.ToString(), att.amount);
+					info.ItemAttributes.Add (att.ca_type.ToString (), att.amount);
                         break;
                 }
             }

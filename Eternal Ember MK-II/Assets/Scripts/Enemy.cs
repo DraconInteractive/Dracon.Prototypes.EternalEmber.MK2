@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour {
 	public EnemyProfile profile;
 
 	public bool canAttack = true;
+	public bool disableAtStart = false;
     private void Awake()
     {
         allEnemies.Add (this);
@@ -92,9 +93,16 @@ public class Enemy : MonoBehaviour {
 		}
 		hp_current = profile.stats.stats.health.maximum;
 		mp_current = profile.stats.stats.mana.maximum;
-		actionRoutine = StartCoroutine (PerformAction (baseActions));
+		if (disableAtStart) {
+			GetComponent<Enemy> ().enabled = false;
+			GetComponent<Outline> ().enabled = false;
+			GetComponent<Collider> ().enabled = false;
+		} else {
+			actionRoutine = StartCoroutine (PerformAction (baseActions));
+		}
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (seenByPlayer && canAttack && !inCombat) {
@@ -180,18 +188,27 @@ public class Enemy : MonoBehaviour {
 
 	#region mouseEvents
 	void OnMouseEnter () {
+		if (!GetComponent<Enemy>().enabled) {
+			return;
+		}
 		if (hasOutline) {
 			outline.enabled = true;
 		}
 	}
 
 	void OnMouseExit () {
+		if (!GetComponent<Enemy>().enabled) {
+			return;
+		}
 		if (hasOutline) {
 			outline.enabled = false;
 		}
 	}
 
 	void OnMouseDown () {
+		if (!GetComponent<Enemy>().enabled) {
+			return;
+		}
 		if (Player.player.targetedEnemy != null) {
 			Player.player.targetedEnemy.GetComponent<Enemy> ().ToggleTargeted(false);
 		}

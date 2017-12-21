@@ -42,8 +42,8 @@ MonoBehaviour:
   ambientOcclusion:
     m_Enabled: 1
     m_Settings:
-      intensity: 1
-      radius: 0.3
+      intensity: 1.2
+      radius: 0.2
       sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
@@ -309,12 +309,12 @@ MonoBehaviour:
   monitors:
     currentMonitorID: 0
     refreshOnPlay: 0
-    histogramMode: 3
+    histogramMode: 5
     waveformExposure: 0.12
     waveformY: 0
     waveformR: 1
     waveformG: 1
     waveformB: 1
     paradeExposure: 0.12
-    vectorscopeExposure: 0.12
+    vectorscopeExposure: 0.108333334
     vectorscopeShowBackground: 1

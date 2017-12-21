@@ -105,7 +105,7 @@ public class Interactable : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        if (UIWindowManager.WindowOpen())
+		if (uiWindow.IsOpen)
         {
             print("window open");
             return;

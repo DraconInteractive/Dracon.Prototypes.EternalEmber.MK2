@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 	[HideInInspector]
     public Animator anim;
     AudioSource audioSource;
-    public CharacterStatistics playerStats;
+	public StatisticsProfile playerStats;
 	public float hp_current, mp_current;
 	Rigidbody rb;
 
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour {
         anim = GetComponent<Animator> ();
         audioSource = GetComponent<AudioSource> ();
 		rb = GetComponent<Rigidbody> ();
-        playerStats.onDeath += OnDeath;
+        playerStats.stats.onDeath += OnDeath;
 
     }
     // Use this for initialization
@@ -106,8 +106,8 @@ public class Player : MonoBehaviour {
         InCombat = false;
         canMove = true;
         
-		hp_current = playerStats.health.maximum;
-		mp_current = playerStats.mana.maximum;
+		hp_current = playerStats.stats.health.maximum;
+		mp_current = playerStats.stats.mana.maximum;
 
         StartCoroutine (Detection ());
         Minibuffer.Register (this);
@@ -119,12 +119,12 @@ public class Player : MonoBehaviour {
 		EquipItem (playerInventory.FindItemInInventory ("Vampiric Spear").item_type);
     }
 
-    [Command]
-    public void DMG(float amount)
-    {
-		print ("Damage Function Called");
-		playerStats.Damage(this.gameObject, playerStats.health, amount);
-    }
+//    [Command]
+//    public void DMG(float amount)
+//    {
+//		print ("Damage Function Called");
+//		playerStats.stats.Damage(this.gameObject, playerStats.stats.health, amount);
+//    }
     // Update is called once per frame
     void Update () {
         Cooldown ();
@@ -327,7 +327,7 @@ public class Player : MonoBehaviour {
         }        
 		//OnAttackArrive();
 
-		bool b = targetAbility.ProcAbility(playerStats, anim, detectedEnemies[0].gameObject, false);
+		bool b = targetAbility.ProcAbility(playerStats.stats, anim, detectedEnemies[0].gameObject, false);
         if (!b)
         {
             yield break;
