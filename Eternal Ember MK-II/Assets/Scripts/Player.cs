@@ -107,7 +107,7 @@ public class Player : MonoBehaviour {
         canMove = true;
         
 		hp_current = playerStats.stats.health.maximum;
-		mp_current = playerStats.stats.mana.maximum;
+		playerStats.stats.mana.current = playerStats.stats.mana.maximum;
 
         StartCoroutine (Detection ());
         Minibuffer.Register (this);

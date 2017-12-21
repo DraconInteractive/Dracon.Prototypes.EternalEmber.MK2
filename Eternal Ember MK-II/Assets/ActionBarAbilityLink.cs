@@ -11,15 +11,17 @@ public class ActionBarAbilityLink : MonoBehaviour {
 	public KeyCode hotKey;
 
 	void Start () {
-//		if (PlayerPrefs.GetString(name + "AbilityName") != "") {
-//			
-//		}
+		string s = PlayerPrefs.GetString (name + " AbilityName");
+		if (s != "") {
+			SetAtStart (AbilityManager.Instance.GetAbilityByName (s));
+		}
 	}
-//	void SetAtStart (string s) {
-//		string name = s;
+	void SetAtStart (Ability a) {
 //		assocAbility = AbilityManager.Instance.GetAbilityByName (name);
-////		PlayerPrefs.SetString (name + " AbilityName", name);
-//	}
+		UISpellInfo nInfo = Ability.CreateSpellInfoFromAbility (a);
+		GetComponent<UISpellSlot> ().Assign (nInfo);
+//		PlayerPrefs.SetString (name + " AbilityName", name);
+	}
 	void Update () {
 		if (Input.GetKeyDown(hotKey)) {
 			GetComponent<UISpellSlot> ().OnPointerClick (new PointerEventData(EventSystem.current));
@@ -29,10 +31,12 @@ public class ActionBarAbilityLink : MonoBehaviour {
 		UISpellInfo info = slot.GetSpellInfo();
 		assocAbility = AbilityManager.Instance.GetAbilityByName (info.Name);
 		PlayerPrefs.SetString (name + " AbilityName", info.Name);
+		print ("assigned item");
 	}
 
 	public void OnUnAssign (UISpellSlot slot) {
 		assocAbility = null;
+		PlayerPrefs.SetString (name + " AbilityName", "");
 	}
 
 	public void TriggerLinkedAbility (UISpellSlot slot) {
